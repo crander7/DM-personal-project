@@ -1,0 +1,13 @@
+header {
+  height: 10vh;
+  width: 100vw;
+  background-color: red;
+  nav {
+    ul {
+      position: relative;
+      right: 30px;
+      font-size: 20px;
+      color: black;
+    }
+  }
+}
