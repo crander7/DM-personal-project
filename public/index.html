@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 <html ng-app="personal">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width initial-scale=1.0">
     <link rel="stylesheet" href="./styles/reset.css">
     <link rel="stylesheet" href="./dist/bundle.css">
     <title></title>
-  </head>
-  <body>
-    <header>
-      <nav>
-        <ul>
-          <li>shop</li>
-          <li>contact us</li>
-          <li>help</li>
-        </ul>
-      </nav>
-    </header>
+</head>
 
+<body ng-controller="mainController">
+
+  <bar-chart></bar-chart>
 
     <ui-view></ui-view>
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="./scripts/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js"></script>
     <script src="./dist/bundle.js"></script>
-  </body>
+    <script src="./test.js" charset="utf-8"></script>
+</body>
+
 </html>
