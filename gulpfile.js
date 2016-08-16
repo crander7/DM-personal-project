@@ -14,6 +14,7 @@ gulp.task('js', () => {
 
 gulp.task('css', () => {
   gulp.src('./public/styles/**/*.scss')
+  .pipe(sass())
   .pipe(concat('bundle.css'))
   .pipe(gulp.dest('./public/dist'))
 })

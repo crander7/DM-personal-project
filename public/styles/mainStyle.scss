@@ -1,16 +1,40 @@
+.header {
+    width: 100%;
+    height: 114px;
+    position: fixed;
+    box-shadow: 0 0 10px 5px lightgray;
+    .nav-left {
+        width: 50%;
+        padding-left: 10vw;
+        float: left;
+    }
+    .nav-right {
+        width: 50%;
+        padding-right: 10vw;
+        float: right;
+        .nav-links {
+            float: right;
+        }
+        .navbar {
+            float: right;
+            clear: right;
+            .nav-list {
+                display: inline-flex;
+            }
+        }
+    }
+}
 svg {
     margin-left: auto;
     margin-right: auto;
     display: block;
 }
-
-.axis path,
-.axis line {
+.axis line,
+.axis path {
     fill: none;
     stroke: #000;
     shape-rendering: crispEdges;
 }
-
 .axis text {
     font: Times;
     font-size: 12px;
