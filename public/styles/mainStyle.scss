@@ -1,28 +1,136 @@
+@import 'https://fonts.googleapis.com/css?family=Titillium+Web:400,700';
+body {
+  font-family: 'Titillium Web', sans-serif;
+  background-color: black;
+}
 .header {
     width: 100%;
     height: 114px;
     position: fixed;
     box-shadow: 0 0 10px 5px lightgray;
+    background-color: white;
     .nav-left {
-        width: 50%;
+        width: 260px;
         padding-left: 10vw;
         float: left;
+        margin-top: 25px;
     }
     .nav-right {
-        width: 50%;
         padding-right: 10vw;
         float: right;
+        overflow: auto;
+        height: 100%;
+        padding-top: 14px;
         .nav-links {
             float: right;
+            display: inline-flex;
+            margin-bottom: 15px;
+            .contact {
+              margin-right: 10px;
+              padding-bottom: 15px;
+              display: inline-flex;
+              .text {
+                padding-top: 6px;
+                margin-left: 9px;
+                font-size: 15px;
+              }
+            }
+              .social-icon {
+                margin-left: 9px;
+              }
         }
         .navbar {
             float: right;
             clear: right;
             .nav-list {
                 display: inline-flex;
+                font-size: 20px;
+                a {
+                  color: #515348;
+                  margin-left: 2.5vw;
+                  &:hover {
+                    color: #547710;
+                  }
+                }
             }
         }
     }
+}
+
+.main {
+  background-color: white;
+  height: 600px;
+}
+
+.footer {
+  height: 430px;
+  width: 100%;
+  .foot-top {
+    height: 333px;
+    background-color: #242424;
+    color: #babdc0;
+    display: flex;
+    padding: 38px 10vw 0 10vw;
+    justify-content: space-between;
+    font-size: 14px;
+    ul {
+      line-height: 32px;
+    }
+    .testimonials img {
+      height: 90px;
+    }
+    .foot-contact {
+      b {
+        font-weight: bold;
+      }
+    }
+    .foot-social {
+      ul {
+        line-height: 24px;
+        .title {
+          margin-bottom: 20px;
+        }
+        li {
+          margin: 6px 0;
+          a {
+            display: inline-flex;
+            img {
+              height: 22px;
+            }
+            .text {
+              margin-left: 5px;
+            }
+          }
+        }
+    }
+  }
+    .title {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    a {
+      color: inherit;
+      font-size: 14px;
+      &:hover {
+        color: white;
+      }
+    }
+  }
+  .foot-bottom {
+    height: 97px;
+    background-color: #151515;
+    color: #616161;
+    font-size: 14px;
+    padding: 24px 10vw 0 10vw;
+    line-height: 24px;
+    text-align: center;
+    a {
+      color: inherit;
+      &:hover {
+        color: white;
+      }
+    }
+  }
 }
 svg {
     margin-left: auto;

@@ -1,23 +1,104 @@
+@import 'https://fonts.googleapis.com/css?family=Titillium+Web:400,700';
+body {
+  font-family: 'Titillium Web', sans-serif;
+  background-color: black; }
+
 .header {
   width: 100%;
   height: 114px;
   position: fixed;
-  box-shadow: 0 0 10px 5px lightgray; }
+  box-shadow: 0 0 10px 5px lightgray;
+  background-color: white; }
   .header .nav-left {
-    width: 50%;
+    width: 260px;
     padding-left: 10vw;
-    float: left; }
+    float: left;
+    margin-top: 25px; }
   .header .nav-right {
-    width: 50%;
     padding-right: 10vw;
-    float: right; }
+    float: right;
+    overflow: auto;
+    height: 100%;
+    padding-top: 14px; }
     .header .nav-right .nav-links {
-      float: right; }
+      float: right;
+      display: inline-flex;
+      margin-bottom: 15px; }
+      .header .nav-right .nav-links .contact {
+        margin-right: 10px;
+        padding-bottom: 15px;
+        display: inline-flex; }
+        .header .nav-right .nav-links .contact .text {
+          padding-top: 6px;
+          margin-left: 9px;
+          font-size: 15px; }
+      .header .nav-right .nav-links .social-icon {
+        margin-left: 9px; }
     .header .nav-right .navbar {
       float: right;
       clear: right; }
       .header .nav-right .navbar .nav-list {
-        display: inline-flex; }
+        display: inline-flex;
+        font-size: 20px; }
+        .header .nav-right .navbar .nav-list a {
+          color: #515348;
+          margin-left: 2.5vw; }
+          .header .nav-right .navbar .nav-list a:hover {
+            color: #547710; }
+
+.main {
+  background-color: white;
+  height: 600px; }
+
+.footer {
+  height: 430px;
+  width: 100%; }
+  .footer .foot-top {
+    height: 333px;
+    background-color: #242424;
+    color: #babdc0;
+    display: flex;
+    padding: 38px 10vw 0 10vw;
+    justify-content: space-between;
+    font-size: 14px; }
+    .footer .foot-top ul {
+      line-height: 32px; }
+    .footer .foot-top .testimonials img {
+      height: 90px; }
+    .footer .foot-top .foot-contact b {
+      font-weight: bold; }
+    .footer .foot-top .foot-social ul {
+      line-height: 24px; }
+      .footer .foot-top .foot-social ul .title {
+        margin-bottom: 20px; }
+      .footer .foot-top .foot-social ul li {
+        margin: 6px 0; }
+        .footer .foot-top .foot-social ul li a {
+          display: inline-flex; }
+          .footer .foot-top .foot-social ul li a img {
+            height: 22px; }
+          .footer .foot-top .foot-social ul li a .text {
+            margin-left: 5px; }
+    .footer .foot-top .title {
+      font-size: 16px;
+      margin-bottom: 20px; }
+    .footer .foot-top a {
+      color: inherit;
+      font-size: 14px; }
+      .footer .foot-top a:hover {
+        color: white; }
+  .footer .foot-bottom {
+    height: 97px;
+    background-color: #151515;
+    color: #616161;
+    font-size: 14px;
+    padding: 24px 10vw 0 10vw;
+    line-height: 24px;
+    text-align: center; }
+    .footer .foot-bottom a {
+      color: inherit; }
+      .footer .foot-bottom a:hover {
+        color: white; }
 
 svg {
   margin-left: auto;
