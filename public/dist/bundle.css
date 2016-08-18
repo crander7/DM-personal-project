@@ -1,14 +1,14 @@
-@import 'https://fonts.googleapis.com/css?family=Titillium+Web:400,700';
+@import 'https://fonts.googleapis.com/css?family=Roboto:400,700|Titillium+Web:400,700';
 body {
-  font-family: 'Titillium Web', sans-serif;
-  background-color: black; }
+  font-family: 'Titillium Web', sans-serif; }
 
 .header {
   width: 100%;
   height: 114px;
   position: fixed;
   box-shadow: 0 0 10px 5px lightgray;
-  background-color: white; }
+  background-color: white;
+  z-index: 10; }
   .header .nav-left {
     width: 260px;
     padding-left: 10vw;
@@ -47,8 +47,9 @@ body {
             color: #547710; }
 
 .main {
-  background-color: white;
-  height: 600px; }
+  height: 486px;
+  width: 100%;
+  padding-top: 114px; }
 
 .footer {
   height: 430px;
@@ -58,7 +59,7 @@ body {
     background-color: #242424;
     color: #babdc0;
     display: flex;
-    padding: 38px 10vw 0 10vw;
+    padding: 38px 10vw 0;
     justify-content: space-between;
     font-size: 14px; }
     .footer .foot-top ul {
@@ -92,13 +93,35 @@ body {
     background-color: #151515;
     color: #616161;
     font-size: 14px;
-    padding: 24px 10vw 0 10vw;
+    padding: 24px 10vw 0;
     line-height: 24px;
     text-align: center; }
     .footer .foot-bottom a {
       color: inherit; }
       .footer .foot-bottom a:hover {
         color: white; }
+
+.home-view {
+  height: 100%;
+  width: 100%;
+  padding-top: 183px; }
+  .home-view .CTA-container {
+    margin-left: 25vw;
+    margin-right: auto; }
+    .home-view .CTA-container .CTA {
+      height: 120px;
+      width: 240px;
+      background-color: #60d0e4;
+      margin: 20px;
+      font-size: 35px;
+      text-align: center;
+      padding-top: 20px;
+      color: white;
+      border-radius: 20px;
+      display: inline-block; }
+      .home-view .CTA-container .CTA:hover {
+        background-color: #1CA4BD;
+        box-shadow: 0 2px 2px 2px lightgrey; }
 
 svg {
   margin-left: auto;

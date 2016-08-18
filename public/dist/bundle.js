@@ -9,16 +9,21 @@ angular.module('personal').config(function ($stateProvider, $urlRouterProvider) 
     url: '/',
     templateUrl: '../views/home.html',
     controller: 'mainController'
+  }).state('business-compare', {
+    url: '/tax-comparison-business',
+    templateUrl: '../views/business-compare.html',
+    controller: 'mainController'
+  }).state('auto-compare', {
+    url: '/tax-comparison-auto',
+    templateUrl: '../views/auto-compare.html',
+    controller: 'mainController'
   });
 
   $urlRouterProvider.otherwise('/');
 });
 'use strict';
 
-angular.module('personal').controller('mainController', function ($scope, mainService) {
-
-  $scope.test = "Angular is working";
-}); //End mainController
+angular.module('personal').controller('mainController', function ($scope, mainService) {}); //End mainController
 'use strict';
 
 angular.module('personal').directive('barChart', function () {
