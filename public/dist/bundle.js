@@ -9,13 +9,41 @@ angular.module('personal').config(function ($stateProvider, $urlRouterProvider) 
     url: '/',
     templateUrl: '../views/home.html',
     controller: 'mainController'
-  }).state('business-compare', {
-    url: '/tax-comparison-business',
-    templateUrl: '../views/business-compare.html',
-    controller: 'mainController'
   }).state('auto-compare', {
     url: '/tax-comparison-auto',
     templateUrl: '../views/auto-compare.html',
+    controller: 'mainController'
+  }).state('filing-status', {
+    url: '/tax-comparison-business/filing-status',
+    templateUrl: '../views/filing-status.html',
+    controller: 'mainController'
+  }).state('w2-income', {
+    url: '/tax-comparison-business/w2-income',
+    templateUrl: '../views/w2-income.html',
+    controller: 'mainController'
+  }).state('business-income', {
+    url: '/tax-comparison-business/business-income',
+    templateUrl: '../views/business-income.html',
+    controller: 'mainController'
+  }).state('deductions', {
+    url: '/tax-comparison-business/deductions',
+    templateUrl: '../views/deductions.html',
+    controller: 'mainController'
+  }).state('exemptions', {
+    url: '/tax-comparison-business/exemptions',
+    templateUrl: '../views/exemptions.html',
+    controller: 'mainController'
+  }).state('personal-expense', {
+    url: '/tax-comparison-business/personal-expense',
+    templateUrl: '../views/personal-expense.html',
+    controller: 'mainController'
+  }).state('business-expense', {
+    url: '/tax-comparison-business/business-expense',
+    templateUrl: '../views/business-expense.html',
+    controller: 'mainController'
+  }).state('business-results', {
+    url: '/tax-comparison-business/business-results',
+    templateUrl: '../views/business-results.html',
     controller: 'mainController'
   });
 
@@ -23,7 +51,33 @@ angular.module('personal').config(function ($stateProvider, $urlRouterProvider) 
 });
 'use strict';
 
-angular.module('personal').controller('mainController', function ($scope, mainService) {}); //End mainController
+angular.module('personal').controller('mainController', function ($rootScope, $scope, $state, mainService) {
+
+    $rootScope.$state = $state;
+
+    $scope.alert = function (calc) {
+        alertify.alert("Heads Up", "We just need to ask you a few questions!", function () {
+            alertify.success('Ok, Lets Start!');
+            $state.go(calc);
+        }).set({
+            transition: 'slide',
+            movable: false
+        }).show();
+    };
+
+    // if($state.current.name !== 'home') {
+    //         $rootScope.showToggle = false;
+    //         $rootScope.currentLoc = $state.current.name;
+    //         console.log($state.current.name);
+    //         console.log($scope.showToggle);
+    // }
+    // else {
+    //     $rootScope.showToggle = true;
+    //     $rootScope.currentLoc = $state.current.name;
+    //     console.log($state.current.name);
+    //     console.log($scope.showToggle);
+    // }
+}); //End mainController
 'use strict';
 
 angular.module('personal').directive('barChart', function () {
@@ -116,7 +170,34 @@ angular.module('personal').directive('barChart', function () {
 }); //End bar Chart Directive
 'use strict';
 
+angular.module('personal').directive('captureDirective', function () {
+    return {
+        templateUrl: '../../views/input-templ.html',
+        restrict: 'E'
+    };
+});
+'use strict';
+
 angular.module('personal').directive('mainDirective', function () {}); //End mainDirective
+'use strict';
+
+angular.module('personal').directive('typedDirective', function () {
+  return {
+    restrict: 'A',
+    link: function link(scope, element, attrs) {
+      alertify.defaults.transition = "zoom";
+      alertify.defaults.theme.ok = "ui positive button";
+      alertify.defaults.theme.cancel = "ui black button";
+      $(function () {
+        $(element).typed({
+          strings: ["find <strong>Tax Advantages</strong>^300", "structure your business.^300", "<strong>Save Money</strong>.^5000"],
+          typeSpeed: 0,
+          loop: true
+        });
+      });
+    }
+  };
+}); //End directive
 'use strict';
 
 angular.module('personal').service('mainService', function ($http) {}); //End mainService

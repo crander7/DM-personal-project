@@ -1,15 +1,18 @@
 <div class="home-view">
-  <div class="typed-js">
-    Compare the Tax Advantages of:
+  <div class="home-title">
+    <div class="fixed-text">
+      <span>These Tools will help you</span>
+    </div>
+    <span class="typed-js" typed-directive></span>
   </div>
   <div class="CTA-container">
-    <a ui-sref="business-compare">
-      <div class="CTA">
+    <a>
+      <div class="CTA" ng-click="alert('filing-status')">
         Business Structure
       </div>
     </a>
-    <a ui-sref="auto-compare">
-      <div class="CTA">
+    <a>
+      <div class="CTA" ng-click="alert('auto-compare')">
         Company Automobile
       </div>
     </a>
