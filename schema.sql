@@ -4,36 +4,35 @@ CREATE TABLE file_status
   status VARCHAR(40)
 );
 
-INSERT INTO file_status (status) VALUES ('Single');
-INSERT INTO file_status (status) VALUES ('Married Filing Jointly');
-INSERT INTO file_status (status) VALUES ('Married Filing Separately');
-INSERT INTO file_status (status) VALUES ('Head of Household');
+INSERT INTO file_status (status) VALUES ('single');
+INSERT INTO file_status (status) VALUES ('married-filing-jointly');
+INSERT INTO file_status (status) VALUES ('married-filing-separately');
+INSERT INTO file_status (status) VALUES ('head-of-household');
 
 CREATE TABLE tax_rates
 (
   tax_rates_id SERIAL PRIMARY KEY,
   rate_name VARCHAR(40),
-  rate NUMERIC(4,3)
+  rate_val NUMERIC(4,3)
 );
 
-INSERT INTO tax_rates (rate_name, rate) VALUES ("Federal Income Tax", 0.10);
-INSERT INTO tax_rates (rate_name, rate) VALUES ("Federal Income Tax", 0.15);
-INSERT INTO tax_rates (rate_name, rate) VALUES ("Federal Income Tax", 0.25);
-INSERT INTO tax_rates (rate_name, rate) VALUES ("Federal Income Tax", 0.28);
-INSERT INTO tax_rates (rate_name, rate) VALUES ("Federal Income Tax", 0.33);
-INSERT INTO tax_rates (rate_name, rate) VALUES ("Federal Income Tax", 0.35);
-INSERT INTO tax_rates (rate_name, rate) VALUES ("Federal Income Tax", 0.396);
-INSERT INTO tax_rates (rate_name, rate) VALUES ("Self Employment Tax", 0.153);
-INSERT INTO tax_rates (rate_name, rate) VALUES ("Medicaid Tax", 0.029);
+INSERT INTO tax_rates (rate_name, rate_val) VALUES ('federalIncomeTax', 0.10);
+INSERT INTO tax_rates (rate_name, rate_val) VALUES ('federalIncomeTax', 0.15);
+INSERT INTO tax_rates (rate_name, rate_val) VALUES ('federalIncomeTax', 0.25);
+INSERT INTO tax_rates (rate_name, rate_val) VALUES ('federalIncomeTax', 0.28);
+INSERT INTO tax_rates (rate_name, rate_val) VALUES ('federalIncomeTax', 0.33);
+INSERT INTO tax_rates (rate_name, rate_val) VALUES ('federalIncomeTax', 0.35);
+INSERT INTO tax_rates (rate_name, rate_val) VALUES ('federalIncomeTax', 0.396);
+INSERT INTO tax_rates (rate_name, rate_val) VALUES ('selfEmploymentTax', 0.153);
+INSERT INTO tax_rates (rate_name, rate_val) VALUES ('medicaidTax', 0.029);
 
 CREATE TABLE brackets
 (
   brackets_id SERIAL PRIMARY KEY,
-  rate NUMERIC(5, 4),
   bottom NUMERIC(9, 2),
   top NUMERIC(10, 2),
-  status_id INTEGER REFERENCES file_status,
-  rate_id INTEGER REFERENCES tax_rates
+  status_id INTEGER REFERENCES file_status(file_status_id),
+  rate_id INTEGER REFERENCES tax_rates(tax_rates_id)
 );
 
 INSERT INTO brackets (bottom, top, status_id, rate_id) VALUES (0.00, 9275.00, 1, 1);
@@ -68,14 +67,15 @@ INSERT INTO brackets (bottom, top, status_id, rate_id) VALUES (441001.00, 999999
 CREATE TABLE std_deductions
 (
   std_deductions_id SERIAL PRIMARY KEY,
+  std_deduction_name VARCHAR (40),
   std_deduction NUMERIC(8, 2),
-  status_id INTEGER REFERENCES file_status
+  status_id INTEGER REFERENCES file_status(file_status_id)
 );
 
-INSERT INTO std_deductions (std_deduction, status_id) VALUES (6300.00, 1);
-INSERT INTO std_deductions (std_deduction, status_id) VALUES (12600.00, 2);
-INSERT INTO std_deductions (std_deduction, status_id) VALUES (6300.00, 3);
-INSERT INTO std_deductions (std_deduction, status_id) VALUES (9300.00, 4);
+INSERT INTO std_deductions (std_deduction_name, std_deduction, status_id) VALUES ('standardDeduction', 6300.00, 1);
+INSERT INTO std_deductions (std_deduction_name, std_deduction, status_id) VALUES ('standardDeduction', 12600.00, 2);
+INSERT INTO std_deductions (std_deduction_name, std_deduction, status_id) VALUES ('standardDeduction', 6300.00, 3);
+INSERT INTO std_deductions (std_deduction_name, std_deduction, status_id) VALUES ('standardDeduction', 9300.00, 4);
 
 CREATE TABLE tax_limits
 (
@@ -84,6 +84,6 @@ CREATE TABLE tax_limits
   limit_value NUMERIC(8, 2)
 );
 
-INSERT INTO tax_limits (limit_name, limit_value) VALUES ("Personal Exemption", 4050.00);
-INSERT INTO tax_limits (limit_name, limit_value) VALUES ("Social Security wage limit", 118500.00);
-INSERT INTO tax_limits (limit_name, limit_value) VALUES ("Social Security Self Employment limit", 14694.00);
+INSERT INTO tax_limits (limit_name, limit_value) VALUES ('personalExemption', 4050.00);
+INSERT INTO tax_limits (limit_name, limit_value) VALUES ('socialSecurityWageLimit', 118500.00);
+INSERT INTO tax_limits (limit_name, limit_value) VALUES ('socialSecuritySelfEmploymentLimit', 14694.00);

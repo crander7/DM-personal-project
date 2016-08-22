@@ -23,7 +23,7 @@
         <div class="nav-right">
           <div class="nav-links">
             <div class="contact">
-              <img src="https://www.ictaxadvisors.com/wp-content/themes/icta/images/ico_phone.jpg" alt="phone icon" />
+              <img ui-sref="login" src="https://www.ictaxadvisors.com/wp-content/themes/icta/images/ico_phone.jpg" alt="phone icon" />
               <div class="text">
                 Toll Free: (888) 959-2829
               </div>
@@ -64,7 +64,7 @@
 
     <main role="main" class=main>
 
-      <div class="progress" ng-class="{hide: $state.current.name === 'home'}">
+      <div class="progress" ng-class="{hide: $state.current.name === 'home' || $state.current.name ==='login'}">
         <a ui-sref="filing-status"><span class="progress-item" ng-class="{highlight: $state.current.name === 'filing-status'}">Filing Status</span></a>
         <a ui-sref="w2-income"><span class="progress-item" ng-class="{highlight: $state.current.name === 'w2-income'}">W2 Income</span></a>
         <a ui-sref="business-income"><span class="progress-item" ng-class="{highlight: $state.current.name === 'business-income'}">Business Income</span></a>

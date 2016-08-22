@@ -1,38 +1,38 @@
-<div class="container">
-
+<div class="container" help-icon>
 	<h2>Please select your filing status:</h2>
+	<a ng-click="showHelp()"><img src="http://megaicons.net/static/img/icons_title/8/178/title/very-basic-info-icon.png"></a>
+	<ul>
+		<li>
+			<input type="radio" id="f-option" name="status" ng-model="filer" value="single">
+			<label for="f-option">Single</label>
+			<div class="check">
+				<div class="inside"></div>
+			</div>
+		</li>
 
-  <ul>
-  <li>
-    <input type="radio" id="f-option" name="status">
-    <label for="f-option">Single</label>
-
-    <div class="check"></div>
-  </li>
-
-  <li>
-    <input type="radio" id="s-option" name="status">
-    <label for="s-option">Married Filing Jointly</label>
-
-    <div class="check"><div class="inside"></div></div>
-  </li>
-
-
-  <li>
-    <input type="radio" id="t-option" name="status">
-    <label for="t-option">Married Filing Separately</label>
-
-    <div class="check"><div class="inside"></div></div>
-  </li>
-
-  <li>
-    <input type="radio" id="u-option" name="status">
-    <label for="u-option">Head of Household</label>
-
-    <div class="check"><div class="inside"></div></div>
-  </li>
-</ul>
-<a ui-sref="w2-income" class='next-btn'>
-  <button type="button" name="button">Proceed</button>
-</a>
+		<li>
+			<input type="radio" id="s-option" name="status" ng-model="filer" value="married-filing-jointly">
+			<label for="s-option">Married Filing Jointly</label>
+			<div class="check">
+				<div class="inside"></div>
+			</div>
+		</li>
+		<li>
+			<input type="radio" id="t-option" name="status" ng-model="filer" value="married-filing-separately">
+			<label for="t-option">Married Filing Separately</label>
+			<div class="check">
+				<div class="inside"></div>
+			</div>
+		</li>
+		<li>
+			<input type="radio" id="u-option" name="status" ng-model="filer" value="head-of-household">
+			<label for="u-option">Head of Household</label>
+			<div class="check">
+				<div class="inside"></div>
+			</div>
+		</li>
+	</ul>
+	<a ng-click="radioCheck(filer)" class='next-btn'>
+		<button type="button" name="button">Proceed</button>
+	</a>
 </div>

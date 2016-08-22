@@ -254,10 +254,16 @@ svg {
   background: white;
   border-radius: 20px;
   padding-top: 15px; }
+  .container a:hover {
+    cursor: pointer; }
+  .container a img {
+    height: 20px;
+    width: 20px; }
   .container h2 {
     color: #000;
     font-weight: normal;
-    margin-left: 18px; }
+    margin-left: 18px;
+    display: inline; }
   .container ul {
     list-style: none;
     height: 100%;
@@ -338,4 +344,50 @@ ui-view {
   background: white;
   border-radius: 20px;
   width: 500px;
-  margin: auto; }
+  margin: 3% auto 0 auto;
+  padding-top: 15px; }
+  .input-container h2 {
+    color: #000;
+    font-weight: normal;
+    margin-left: 18px;
+    display: inline-block; }
+  .input-container a:hover {
+    cursor: pointer; }
+  .input-container a img {
+    height: 20px;
+    width: 20px; }
+
+.input-box {
+  background-image: url(https://cdn0.iconfinder.com/data/icons/social-messaging-productivity-4/128/dollar-sign-256.png);
+  background-position: left;
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: 5px 5px;
+  font-size: 20px;
+  text-align: left;
+  padding-left: 30px; }
+
+.info-box {
+  display: none; }
+
+.show {
+  display: block; }
+
+caption {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center; }
+
+td {
+  font-size: 15px;
+  text-align: center; }
+
+.table-heading {
+  font-size: 22px; }
+
+.table-catagory {
+  font-size: 22px;
+  float: right;
+  margin-left: 20px;
+  margin-right: 10px; }

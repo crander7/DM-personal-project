@@ -50,6 +50,11 @@ angular.module('personal').config(($stateProvider, $urlRouterProvider) => {
       url: '/tax-comparison-business/business-results',
       templateUrl: '../views/business-results.html',
       controller: 'mainController'
+    })
+    .state('login', {
+        url: '/login',
+        templateUrl: '../views/login.html',
+        controller: 'mainController'
     });
 
 

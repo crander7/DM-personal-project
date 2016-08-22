@@ -1,7 +1,10 @@
 <div class="input-container">
-    <h2></h2>
-    <form class="" action="index.html" method="post">
-        <input type="text" name="name" value="">
-        <button type="button" name="button"></button>
+    <h2>{{ pageName }}</h2>
+    <a ng-click="showHelp()"><img src="http://megaicons.net/static/img/icons_title/8/178/title/very-basic-info-icon.png"></a>
+    <form ng-submit='proceed(num)'>
+        <input class="input-box" type="text" name="name" value="" autofocus ng-model="num">
     </form>
+    <a ng-click="proceed(num)">
+      <button type="button" name="button">Proceed</button>
+    </a>
 </div>
