@@ -4,7 +4,7 @@
         <caption>Tax Breakdown by Business Structure</caption>
         <tr>
             <th>
-
+                {{ help }}
             </th>
             <th class="table-heading">
                 W2
@@ -21,13 +21,13 @@
                 Total Income
             </td>
             <td>
-                $100,000
+                ${{ report.w2Wages }}
             </td>
             <td>
-                $120,000
+                ${{ report.businessNet }}
             </td>
             <td>
-                $120,000
+                ${{ report.businessNet }}
             </td>
         </tr>
         <tr>
@@ -35,13 +35,13 @@
                 Total Federal Taxes
             </td>
             <td>
-                $25,834
+                ${{ report.totalTax.w2 }}
             </td>
             <td>
-                $28,184
+                ${{ report.totalTax.sCorp }}
             </td>
             <td>
-                $36,104
+                ${{ report.totalTax.soleProp }}
             </td>
         </tr>
         <tr>
@@ -52,10 +52,10 @@
                 N/A
             </td>
             <td>
-                $2,100
+                ${{ report.businessExpense }}
             </td>
             <td>
-                0
+                N/A
             </td>
         </tr>
         <tr>
@@ -63,13 +63,13 @@
                 Total Tax & Expenses
             </td>
             <td>
-                $25,834
+                ${{ report.totalTax.w2 }}
             </td>
             <td>
-                $30,284
+                ${{ report.totalExpense.sCorp }}
             </td>
             <td>
-                $36,104
+                ${{ report.totalExpense.soleProp }}
             </td>
         </tr>
         <tr>
@@ -77,13 +77,13 @@
                 Effective Tax Rate
             </td>
             <td>
-                26%
+                {{ report.effectiveTaxRate.w2 }}%
             </td>
             <td>
-                23%
+                {{ report.effectiveTaxRate.sCorp }}%
             </td>
             <td>
-                30%
+                {{ report.effectiveTaxRate.soleProp }}%
             </td>
         </tr>
         <tr>
@@ -91,13 +91,13 @@
                 Net Income
             </td>
             <td>
-                $74, 166
+                ${{ report.totalNet.w2 }}
             </td>
             <td>
-                $89,716
+                ${{ report.totalNet.sCorp }}
             </td>
             <td>
-                $83,896
+                ${{ report.totalNet.soleProp }}
             </td>
         </tr>
     </table>

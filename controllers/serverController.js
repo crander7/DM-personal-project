@@ -12,6 +12,16 @@ module.exports = {
             else {
                 res.statusCode(404);
             }
+        },
+        getBracket: (req, res, next) => {
+            if (req.query.first) {
+                db.read_tax_brackets([req.query.first, req.query.second, req.query.third, req.query.status], (err, values) => {
+                    res.json(values);
+                });
+            }
+            else {
+                res.statusCode(404);
+            }
         }
 
 };

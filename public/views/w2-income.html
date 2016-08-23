@@ -1,1 +1,15 @@
-<capture-directive></capture-directive>
+<div class="input-container">
+    <h2>{{ pageName }}</h2>
+    <a ng-click="showHelp()"><img src="http://megaicons.net/static/img/icons_title/8/178/title/very-basic-info-icon.png"></a>
+    <form>
+        <label for="name">W2 income if employed</label>
+        <input class="input-box" type="text" name="name" value="" autofocus ng-model="num">
+    </form>
+    <form ng-submit="proceed(num, num2)">
+        <label for="scorp">W2 income if S Corp</label>
+        <input class="input-box" type="text" name="scorp" value="" ng-model='num2'>
+    </form>
+    <a ng-click="proceed(num, num2)">
+      <button type="button" name="button">Proceed</button>
+    </a>
+</div>

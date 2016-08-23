@@ -42,8 +42,8 @@ angular.module('personal').controller('mainController', ($rootScope, $scope, $st
         }
     };
 
-    $scope.proceed = (num) => {
-        if (isNaN(num) || num === '') {
+    $scope.proceed = (num, num2) => {
+        if (isNaN(num) || num === '' || ($state.current.name === 'w2-income' && isNaN(num2))) {
             $scope.num = '';
             alertify.alert("Invalid Entry", "Please enter a number even if its a 0.", () => {
                 alertify.message('click i for more info.');
@@ -54,10 +54,13 @@ angular.module('personal').controller('mainController', ($rootScope, $scope, $st
         }
         else {
             alertify.success('Awesome!');
-            mainService.addToClient(num, $state.current.name);
+            mainService.addToClient(num, $state.current.name, num2);
             if ($state.current.name === 'business-expense') {
                 mainService.getTaxData().then(response => {
-                    
+                    mainService.getBrackets(response).then(result => {
+                        console.log(result);
+                        $rootScope.report = result;
+                    });
                 });
             }
             destPicker();

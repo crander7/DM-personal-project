@@ -4,7 +4,7 @@ const cors = require('cors');
 const session = require('express-session');
 const app = module.exports = express();
 const massive = require('massive');
-const connectStr = "postgres://postgres:craig@localhost/test4";
+const connectStr = "postgres://postgres:craig@localhost/test8";
 const massiveInstance = massive.connectSync({connectionString: connectStr});
 app.set('db', massiveInstance);
 const taxCode = require('./controllers/serverController.js');
@@ -38,7 +38,6 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
     failureRedirect: '/login'
 }));
 
-
 passport.serializeUser((user, done) => {
   done(null, user);
 });
@@ -51,7 +50,8 @@ app.get('/me', (req, res, next) => {
     res.json(req.user);
 });
 
-app.get('/tax-data/', taxCode.getStatus);
+app.get('/tax-data', taxCode.getStatus);
+app.get('/tax-data/brackets', taxCode.getBracket);
 
 app.listen(config.port, () => {
   console.log("Listening on port:", config.port);
