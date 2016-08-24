@@ -1,32 +1,33 @@
-<div class="input-container">
+<div class="results">
+
+<div class="table-container">
     <h2>Here is your Personalized Report</h2>
-    <table>
+    <table class="table">
         <caption>Tax Breakdown by Business Structure</caption>
         <tr>
             <th>
-                {{ help }}
             </th>
-            <th class="table-heading">
-                W2
+            <th class="table-heading w2">
+                W2 Employment
             </th>
-            <th class="table-heading">
-                S Corp
+            <th class="table-heading sCorp">
+                S Corporation
             </th>
-            <th class="table-heading">
-                Sole Prop
+            <th class="table-heading soleProp">
+                Sole Proprietorship
             </th>
         </tr>
         <tr>
             <td class="table-catagory">
                 Total Income
             </td>
-            <td>
+            <td class="w2">
                 ${{ report.w2Wages }}
             </td>
-            <td>
+            <td class="sCorp">
                 ${{ report.businessNet }}
             </td>
-            <td>
+            <td class="soleProp">
                 ${{ report.businessNet }}
             </td>
         </tr>
@@ -34,13 +35,13 @@
             <td class="table-catagory">
                 Total Federal Taxes
             </td>
-            <td>
+            <td class="w2">
                 ${{ report.totalTax.w2 }}
             </td>
-            <td>
+            <td class="sCorp">
                 ${{ report.totalTax.sCorp }}
             </td>
-            <td>
+            <td class="soleProp">
                 ${{ report.totalTax.soleProp }}
             </td>
         </tr>
@@ -48,13 +49,13 @@
             <td class="table-catagory">
                 Professional Services
             </td>
-            <td>
+            <td class="w2">
                 N/A
             </td>
-            <td>
+            <td class="sCorp">
                 ${{ report.businessExpense }}
             </td>
-            <td>
+            <td class="soleProp">
                 N/A
             </td>
         </tr>
@@ -62,13 +63,13 @@
             <td class="table-catagory">
                 Total Tax & Expenses
             </td>
-            <td>
+            <td class="w2">
                 ${{ report.totalTax.w2 }}
             </td>
-            <td>
+            <td class="sCorp">
                 ${{ report.totalExpense.sCorp }}
             </td>
-            <td>
+            <td class="soleProp">
                 ${{ report.totalExpense.soleProp }}
             </td>
         </tr>
@@ -76,13 +77,13 @@
             <td class="table-catagory">
                 Effective Tax Rate
             </td>
-            <td>
+            <td class="w2">
                 {{ report.effectiveTaxRate.w2 }}%
             </td>
-            <td>
+            <td class="sCorp">
                 {{ report.effectiveTaxRate.sCorp }}%
             </td>
-            <td>
+            <td class="soleProp">
                 {{ report.effectiveTaxRate.soleProp }}%
             </td>
         </tr>
@@ -90,15 +91,21 @@
             <td class="table-catagory">
                 Net Income
             </td>
-            <td>
+            <td class="w2 net">
                 ${{ report.totalNet.w2 }}
             </td>
-            <td>
+            <td class="sCorp net">
                 ${{ report.totalNet.sCorp }}
             </td>
-            <td>
+            <td class="soleProp net">
                 ${{ report.totalNet.soleProp }}
             </td>
         </tr>
     </table>
+    <a ng-click="reProcess()"><button type="button" name="button">Re-Process</button></a>
+    <a ng-click="runTest()"><button type="button" name="button">test data</button></a>
+</div>
+<div class="graph-container" bar-chart>
+
+</div>
 </div>

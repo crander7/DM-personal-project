@@ -4,7 +4,10 @@
     <form ng-submit='proceed(num)'>
         <input class="input-box" type="text" name="name" value="" autofocus ng-model="num">
     </form>
-    <a ng-click="proceed(num)">
-      <button type="button" name="button">Proceed</button>
+    <a ng-click="proceed(num)" ng-hide="{{ done }}">
+      <button type="button" name="button">Process</button>
+    </a>
+    <a ng-click="reProcess(num)" ng-show="{{ done }}">
+        <button type="button" name="button">Re-Process</button>
     </a>
 </div>

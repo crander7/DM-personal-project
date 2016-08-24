@@ -115,11 +115,26 @@ angular.module('personal').controller('mainController', function ($rootScope, $s
                     mainService.getBrackets(response).then(function (result) {
                         console.log(result);
                         $rootScope.report = result;
+                        $rootScope.done = true;
                     });
                 });
             }
             destPicker();
         }
+    };
+
+    $scope.reProcess = function (num, num2) {
+        if (num) {
+            mainService.addToClient(num, $state.current.name, num2);
+        }
+        mainService.getTaxData().then(function (response) {
+            mainService.getBrackets(response).then(function (result) {
+                console.log(result);
+                $rootScope.report = result;
+                $rootScope.done = true;
+            });
+        });
+        $state.go('business-results');
     };
 
     (function () {
@@ -148,12 +163,27 @@ angular.module('personal').controller('mainController', function ($rootScope, $s
                 movable: false
             }).show();
         } else {
-            mainService.addToClient(val, $state.current.name);
-            destPicker();
+            if ($rootScope.done === true) {
+                mainService.addToClient(val, $state.current.name);
+                destPicker();
+                $state.go('business-results');
+            } else {
+                mainService.addToClient(val, $state.current.name);
+                destPicker();
+            }
         }
     };
 
-    // $scope.showHelp = false;
+    $scope.runTest = function () {
+        mainService.test('married-filing-jointly', '100000', '60000', '110000', '15000', '4', '3500', '2800');
+        mainService.getTaxData().then(function (response) {
+            mainService.getBrackets(response).then(function (result) {
+                console.log(result);
+                $rootScope.report = result;
+                $rootScope.done = true;
+            });
+        });
+    };
 
     $scope.showHelp = function () {
         var page = $state.current.name;
@@ -216,7 +246,7 @@ angular.module('personal').controller('mainController', function ($rootScope, $s
 angular.module('personal').directive('barChart', function () {
 
   return {
-    restrict: 'E',
+    restrict: 'A',
     link: function link(scope, element, attrs) {
 
       var margin = {
@@ -225,10 +255,10 @@ angular.module('personal').directive('barChart', function () {
         bottom: 100,
         left: 50
       },
-          width = 700 - margin.right - margin.left,
+          width = 450 - margin.right - margin.left,
           _height = 500 - margin.top - margin.bottom;
 
-      var svg = d3.select("body").append("svg").attr({
+      var svg = d3.select(".graph-container").append("svg").attr({
         "width": width + margin.right + margin.left,
         "height": _height + margin.top + margin.bottom
       }).append("g").attr("transform", "translate(" + margin.left + "," + margin.right + ")");
@@ -257,8 +287,8 @@ angular.module('personal').directive('barChart', function () {
         return d.age;
       })]);
 
-      svg.selectAll('rect').data(data).enter().append('rect').attr("height", 0).attr("y", _height).transition().duration(3000).delay(function (d, i) {
-        return i * 200;
+      svg.selectAll('rect').data(data).enter().append('rect').attr("height", 0).attr("y", _height).transition().duration(2000).delay(function (d, i) {
+        return i * 100;
       })
       // attributes can be also combined under one .attr
       .attr({
@@ -273,7 +303,7 @@ angular.module('personal').directive('barChart', function () {
           return _height - yScale(d.age);
         }
       }).style("fill", function (d, i) {
-        return 'rgb(20, 20, ' + (i * 30 + 100) + ')';
+        return 'rgb(20, 10, ' + (i * 40 + 150) + ')';
       });
 
       svg.selectAll('text').data(data).enter().append('text').text(function (d) {
@@ -301,6 +331,23 @@ angular.module('personal').directive('barChart', function () {
 
   };
 }); //End bar Chart Directive
+
+var myData = [{
+  name: "Aye",
+  age: 27
+}, {
+  name: "Jadyn",
+  age: 7
+}, {
+  name: "Craig",
+  age: 29
+}, {
+  name: "Christine",
+  age: 13
+}, {
+  name: "Nathan",
+  age: 11
+}];
 // angular.module('personal').directive('helpIcon', () => {
 //     return {
 //         // templateUrl: '../../views/help-icon.html',
@@ -386,6 +433,17 @@ angular.module('personal').service('mainService', function ($http) {
         exemptions: '',
         personalExpense: '',
         businessExpense: ''
+    };
+    //Test data Delete later
+    this.test = function (status, w2Inc, salary, busNet, ded, exemp, personal, busEx) {
+        client.filingStatus = status;
+        client.w2Income = Number(w2Inc);
+        client.salary = Number(salary);
+        client.businessIncome = Number(busNet);
+        client.deductions = Number(ded);
+        client.exemptions = Number(exemp);
+        client.personalExpense = Number(personal);
+        client.businessExpense = Number(busEx);
     };
 
     this.addToClient = function (val, loc, val2) {

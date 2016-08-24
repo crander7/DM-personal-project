@@ -10,6 +10,17 @@ angular.module('personal').service('mainService', function($http) {
         personalExpense: '',
         businessExpense: ''
     };
+    //Test data Delete later
+    this.test = (status, w2Inc, salary, busNet, ded, exemp, personal, busEx) => {
+        client.filingStatus = status;
+        client.w2Income = Number(w2Inc);
+        client.salary = Number(salary);
+        client.businessIncome = Number(busNet);
+        client.deductions = Number(ded);
+        client.exemptions = Number(exemp);
+        client.personalExpense = Number(personal);
+        client.businessExpense = Number(busEx);
+    };
 
     this.addToClient = (val, loc, val2) => {
         switch (loc) {

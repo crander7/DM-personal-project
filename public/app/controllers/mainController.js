@@ -2,7 +2,6 @@ angular.module('personal').controller('mainController', ($rootScope, $scope, $st
 
     $rootScope.$state = $state;
 
-
     $scope.alert = calc => {
         alertify.alert("Heads Up", "We just need to ask you a few questions!", () => {
             alertify.success('Ok, Lets Start!');
@@ -60,11 +59,26 @@ angular.module('personal').controller('mainController', ($rootScope, $scope, $st
                     mainService.getBrackets(response).then(result => {
                         console.log(result);
                         $rootScope.report = result;
+                        $rootScope.done = true;
                     });
                 });
             }
             destPicker();
         }
+    };
+
+    $scope.reProcess = (num, num2) => {
+        if (num) {
+            mainService.addToClient(num, $state.current.name, num2);
+        }
+        mainService.getTaxData().then(response => {
+            mainService.getBrackets(response).then(result => {
+                console.log(result);
+                $rootScope.report = result;
+                $rootScope.done = true;
+            });
+        });
+        $state.go('business-results');
     };
 
     (() => {
@@ -95,13 +109,28 @@ angular.module('personal').controller('mainController', ($rootScope, $scope, $st
             }).show();
         }
         else {
-            mainService.addToClient(val, $state.current.name);
-            destPicker();
+            if ($rootScope.done === true) {
+                mainService.addToClient(val, $state.current.name);
+                destPicker();
+                $state.go('business-results');
+            }
+            else {
+                mainService.addToClient(val, $state.current.name);
+                destPicker();
+            }
         }
     };
 
-
-    // $scope.showHelp = false;
+    $scope.runTest = () => {
+        mainService.test('married-filing-jointly', '100000', '60000', '110000', '15000', '4', '3500', '2800');
+        mainService.getTaxData().then(response => {
+            mainService.getBrackets(response).then(result => {
+                console.log(result);
+                $rootScope.report = result;
+                $rootScope.done = true;
+            });
+        });
+    };
 
     $scope.showHelp = () => {
         let page = $state.current.name;

@@ -1,20 +1,21 @@
 angular.module('personal').directive('barChart', () => {
 
   return {
-    restrict: 'E',
+    restrict: 'A',
     link: (scope, element, attrs) => {
 
-      var margin = {
+      let margin = {
         top: 20,
         right: 10,
         bottom: 100,
         left: 50
       },
-      width = 700 - margin.right - margin.left,
+
+      width = 450 - margin.right - margin.left,
       height = 500 - margin.top - margin.bottom;
 
 
-      var svg = d3.select("body")
+      let svg = d3.select(".graph-container")
       .append("svg")
       .attr({
         "width": width + margin.right + margin.left,
@@ -26,23 +27,23 @@ angular.module('personal').directive('barChart', () => {
 
 
       // define x and y scales
-      var xScale = d3.scale.ordinal()
+      let xScale = d3.scale.ordinal()
       .rangeRoundBands([0, width], 0.2, 0.2);
 
-      var yScale = d3.scale.linear()
+      let yScale = d3.scale.linear()
       .range([height, 0]);
 
       // define x axis and y axis
-      var xAxis = d3.svg.axis()
+      let xAxis = d3.svg.axis()
       .scale(xScale)
       .orient("bottom");
 
-      var yAxis = d3.svg.axis()
+      let yAxis = d3.svg.axis()
       .scale(yScale)
       .orient("left");
 
 
-      var data = myData;
+      let data = myData;
 
       // sort the gdp values
       // data.sort(function(a, b) {
@@ -62,9 +63,9 @@ angular.module('personal').directive('barChart', () => {
       .append('rect')
       .attr("height", 0)
       .attr("y", height)
-      .transition().duration(3000)
+      .transition().duration(2000)
       .delay(function(d, i) {
-        return i * 200;
+        return i * 100;
       })
       // attributes can be also combined under one .attr
       .attr({
@@ -80,7 +81,7 @@ angular.module('personal').directive('barChart', () => {
         }
       })
       .style("fill", function(d, i) {
-        return 'rgb(20, 20, ' + ((i * 30) + 100) + ')'
+        return 'rgb(20, 10, ' + ((i * 40) + 150) + ')'
       });
 
 
@@ -133,8 +134,29 @@ angular.module('personal').directive('barChart', () => {
       .text("Age in Years");
     }
 
+
   };
 
 
 
+
 });//End bar Chart Directive
+
+var myData = [
+    {
+        name: "Aye",
+        age: 27
+    }, {
+        name: "Jadyn",
+        age: 7
+    }, {
+        name: "Craig",
+        age: 29
+    }, {
+        name: "Christine",
+        age: 13
+    }, {
+        name: "Nathan",
+        age: 11
+    }
+];

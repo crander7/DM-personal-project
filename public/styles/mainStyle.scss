@@ -2,6 +2,9 @@
 body {
     font-family: 'Titillium Web', sans-serif;
 }
+*, :after, :before {
+    box-sizing: initial;
+}
 .header {
     width: 100%;
     height: 114px;
@@ -497,7 +500,25 @@ ui-view {
 .show {
     display: block;
 }
-
+.results {
+    width: 1000px;
+    height: 460px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    margin-top: 3%;
+    border-radius: 20px;
+}
+.table-container {
+    height: 75%;
+    width: 500px;
+    margin: 0 auto;
+    padding-top: 15px;
+    display: inline-block;
+}
+.table {
+    margin: auto;
+}
 caption {
     font-size: 25px;
     font-weight: bold;
@@ -507,13 +528,35 @@ caption {
 td {
     font-size: 15px;
     text-align: center;
+    border: 1px solid lightgray;
+    width: 120px;
+    height: 35px;
+    vertical-align: middle;
+    color: grey;
+    transition: all 500ms ease-in-out;
 }
 .table-heading {
     font-size: 22px;
+    background: #60d0e4;
+    border: 1px solid lightgray;
+    height: 50px;
+    vertical-align: middle;
+    color: white;
 }
 .table-catagory {
-    font-size: 22px;
-    float: right;
+    font-size: 18px;
+    text-align: center;
     margin-left: 20px;
     margin-right: 10px;
+    background: #60d0e4;
+    color: white;
+}
+.graph-container {
+    height: 390px;
+    width: 450px;
+    display: inline-block;
+    margin-left: 40px;
+}
+.net {
+    font-weight: 700;
 }

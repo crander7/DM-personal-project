@@ -9,7 +9,10 @@
         <label for="scorp">W2 income if S Corp</label>
         <input class="input-box" type="text" name="scorp" value="" ng-model='num2'>
     </form>
-    <a ng-click="proceed(num, num2)">
+    <a ng-click="proceed(num, num2)" ng-hide="{{ done }}">
       <button type="button" name="button">Proceed</button>
+    </a>
+    <a ng-click="reProcess(num, num2)" ng-show="{{ done }}">
+        <button type="button" name="button">Re-Process</button>
     </a>
 </div>
