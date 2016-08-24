@@ -160,32 +160,13 @@ angular.module('personal').controller('mainController', ($rootScope, $scope, $st
             default:
                 info = "Unable to find help for this topic";
         }
-        alertify.alert(`${$scope.pageName} help`, info).set({
+        alertify.alert(`${$scope.pageName} help`, info, () => {
+        
+        }).set({
             transition: 'zoom',
             movable: false
         }).show();
     };
-
-    // $scope.addToClient = val => {
-    //     alert(val);
-    // };
-    // let getName = () => {
-    //     let rawName = $state.current.name;
-    //     let nameArr = [];
-    //     let result = '';
-    //     if (rawName.includes('-')) {
-    //         rawName = rawName.split('-');
-    //         nameArr.push(rawName[0].charAt(0).toUpperCase() + rawName[0].slice(1));
-    //         nameArr.push(rawName[1].charAt(0).toUpperCase() + rawName[1].slice(1));
-    //         result = nameArr.join(" ");
-    //     }
-    //     else {
-    //         rawName = rawName.charAt(0).toUpperCase() + rawName.slice(1);
-    //         result = rawName;
-    //     }
-    //     $scope.pageName = result;
-    // };
-    // getName();
 
 
 }); //End mainController
