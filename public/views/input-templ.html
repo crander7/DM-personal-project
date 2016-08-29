@@ -1,13 +1,10 @@
-<div class="input-container">
+<div class="input-container templ">
     <h2>{{ pageName }}</h2>
-    <a ng-click="showHelp()"><img src="../assets/info-icon.png"></a>
+    <a ng-click="showHelp()"><img src="../assets/info-icon.png" /></a>
     <form ng-submit='proceed(num)'>
-        <input class="input-box" type="text" name="name" value="" autofocus ng-model="num">
+        <input class="input-box temp-in" type="text" ng-model="num">
     </form>
-    <a ng-click="proceed(num)" ng-hide="{{ done }}">
+    <a class="templ-a" ng-click="proceed(num)">
       <button type="button" name="button">Process</button>
-    </a>
-    <a ng-click="reProcess(num)" ng-show="{{ done }}">
-        <button type="button" name="button">Re-Process</button>
     </a>
 </div>

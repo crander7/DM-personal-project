@@ -1,1 +1,1 @@
-angular.module('personal', ['ui.router']);
+angular.module('personal', ['ui.router', 'ngAnimate']);

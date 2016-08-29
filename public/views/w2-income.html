@@ -1,18 +1,15 @@
 <div class="input-container">
     <h2>{{ pageName }}</h2>
-    <a ng-click="showHelp()"><img src="../assets/info-icon.png"></a>
-    <form>
-        <label for="name">W2 income if employed</label>
-        <input class="input-box" type="text" name="name" value="" autofocus ng-model="num">
-    </form>
-    <form ng-submit="proceed(num, num2)">
-        <label for="scorp">W2 income if S Corp</label>
-        <input class="input-box" type="text" name="scorp" value="" ng-model='num2'>
-    </form>
-    <a ng-click="proceed(num, num2)" ng-hide="{{ done }}">
+    <a ng-click="showHelp()"><img src="../assets/info-icon.png" /></a>
+    <div class="w2-page">
+        <label class="lbl">W2 income if employed</label>
+        <input class="input-box temp-in" type="text" ng-model="num">
+        <form class="templ-in" ng-submit="proceed(num, num2)">
+            <label class="lbl">W2 income if S Corp</label>
+            <input class="input-box" type="text" ng-model='num2'>
+        </form>
+    </div>
+    <a class="templ-a" ng-click="proceed(num, num2)">
       <button type="button" name="button">Proceed</button>
-    </a>
-    <a ng-click="reProcess(num, num2)" ng-show="{{ done }}">
-        <button type="button" name="button">Re-Process</button>
     </a>
 </div>

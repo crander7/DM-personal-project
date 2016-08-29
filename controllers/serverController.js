@@ -13,6 +13,7 @@ module.exports = {
                 res.statusCode(404);
             }
         },
+        //for client
         getBracket: (req, res, next) => {
             if (req.query.first) {
                 db.read_tax_brackets([req.query.first, req.query.second, req.query.third, req.query.status], (err, values) => {
@@ -22,6 +23,13 @@ module.exports = {
             else {
                 res.statusCode(404);
             }
+        },
+        //for admin
+        getBrackets: (req, res, next) => {
+            db.get_bracket([req.params.status], (err, response) => {
+                console.log("error", err, "db response", response);
+                res.json(response);
+            });
         }
 
 };

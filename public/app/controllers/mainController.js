@@ -1,15 +1,31 @@
-angular.module('personal').controller('mainController', ($rootScope, $scope, $state, mainService) => {
+angular.module('personal').controller('mainController', ($rootScope, $scope, $state, taxService, userService, mainService) => {
 
     $rootScope.$state = $state;
 
     $scope.alert = calc => {
-        alertify.alert("Heads Up", "We just need to ask you a few questions!", () => {
-            alertify.success('Ok, Lets Start!');
-            $state.go(calc);
-        }).set({
-            transition: 'slide',
-            movable: false
-        }).show();
+        // alertify.alert("Heads Up", "We just need to ask you a few questions!", () => {
+        //     alertify.success('Ok, Lets Start!');
+        //     $state.go(calc);
+        // }).set({
+        //     transition: 'slide',
+        //     movable: false
+        // }).show();
+        swal({
+            title: 'We just need to ask you a few questions!',
+            showCancelButton: true,
+            closeOnConfirm: false,
+            closeOnCancel: false,
+            cancelButtonText: "No thanks",
+            animation: 'slide-from-top'
+        }, ok => {
+            if (ok) {
+                swal('Okay, lets start!', "", "success");
+                $state.go(calc);
+            }
+            else {
+                swal('Cancelled', "Your request has been cancelled.", 'error');
+            }
+        });
     };
 
     let destPicker = () => {
@@ -44,15 +60,24 @@ angular.module('personal').controller('mainController', ($rootScope, $scope, $st
     $scope.proceed = (num, num2) => {
         if (isNaN(num) || num === '' || ($state.current.name === 'w2-income' && isNaN(num2))) {
             $scope.num = '';
-            alertify.alert("Invalid Entry", "Please enter a number even if its a 0.", () => {
-                alertify.message('click i for more info.');
-            }).set({
-                transition: 'slide',
-                movable: false
-            }).show();
+            // alertify.alert("Invalid Entry", "Please enter a number even if its a 0.", () => {
+            //     alertify.message('click i for more info.');
+            // }).set({
+            //     transition: 'slide',
+            //     movable: false
+            // }).show();
+            swal({
+                title: "Invalid Entry",
+                text: "Please enter a number even if it's zero",
+                closeOnConfirm: false,
+                allowOutsideClick: true
+            }, isConfirm => {
+                swal("Please click i for more info", "", "information");
+            });
+
         }
         else {
-            alertify.success('Awesome!');
+            // alertify.success('Awesome!');
             mainService.addToClient(num, $state.current.name, num2);
             if ($state.current.name === 'business-expense') {
                 mainService.getTaxData().then(response => {
@@ -101,12 +126,17 @@ angular.module('personal').controller('mainController', ($rootScope, $scope, $st
     $scope.filer = null;
     $scope.radioCheck = (val) => {
         if (val === null) {
-            alertify.alert("Error", "Please select a filing status.", () => {
-                alertify.message("Click i for more information");
-            }).set({
-                transition: 'slide',
-                movable: false
-            }).show();
+            // alertify.alert("Error", "Please select a filing status.", () => {
+            //     alertify.message("Click i for more information");
+            // }).set({
+            //     transition: 'slide',
+            //     movable: false
+            // }).show();
+            swal({
+                title: "Invalid Entry",
+                text: "Please enter a number even if it's zero",
+                allowOutsideClick: true
+            });
         }
         else {
             if ($rootScope.done === true) {
@@ -160,13 +190,87 @@ angular.module('personal').controller('mainController', ($rootScope, $scope, $st
             default:
                 info = "Unable to find help for this topic";
         }
-        alertify.alert(`${$scope.pageName} help`, info, () => {
-        
-        }).set({
-            transition: 'zoom',
-            movable: false
-        }).show();
+        // alertify.alert(`${$scope.pageName} help`, info, () => {
+        //
+        // }).set({
+        //     transition: 'zoom',
+        //     movable: false
+        // }).show();
+        swal({
+            title: `${$scope.pageName} help`,
+            text: info,
+            allowOutsideClick: true
+        });
     };
 
+    $rootScope.resultGate = () => {
+        console.log($rootScope.done);
+        if ($rootScope.done === true) {
+            $state.go('business-results');
+        }
+        else {
+            // alertify.alert("Denied", "Please finish answering the questions to see your Personal Report", () => {
 
+            // }).show();
+            swal("Denied", "Please finish the assessment to see your Personal Report.", "error");
+        }
+    };
+
+    $scope.getUser = name => {
+        console.log('getUser in mainController', name);
+        userService.getUser(name).then(response => {
+            console.log("fetchedUser", response);
+            $scope.fetchedUser = response;
+            $state.go('user-data');
+        });
+    };
+
+    $scope.updateUser = user => {
+        console.log("mainController", user);
+        userService.updateUser(user).then(response => {
+            // alertify.alert('Server message', response, () => {
+            //     $state.go('admin');
+            // }).show();
+            console.log(response);
+            swal({
+                title: 'Server message',
+                text: response,
+                allowOutsideClick: true,
+            }, isConfirm => {
+                $state.go('admin');
+            });
+        });
+    };
+
+    $scope.userPrompt = () => {
+        // alertify.prompt("Who would you like to add as an admin?", "Name", (evt, value) => {
+        swal({
+            title: 'Who would you like to grant admin access?',
+            text: '',
+            type: 'input',
+            showCancelButton: true,
+            inputPlaceholder: "Name"
+        }, input => {
+            if (input === false) {
+                return false;
+            }
+            if (input === "") {
+                swal.showInputError("You need to write something!");
+                return false
+            }
+            console.log(input);
+            $scope.getUser(input);
+        });
+        // });
+    };
+
+    $scope.getBrackets = (status) => {
+        console.log("initial in controller", status);
+        taxService.getBrackets(status).then(response => {
+            console.log("return to controller after server", response);
+            $rootScope.brackets = response;
+            console.log($scope.brackets);
+            $state.go('bracket-edit');
+        });
+    };
 }); //End mainController

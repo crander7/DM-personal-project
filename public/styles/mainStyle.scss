@@ -1,6 +1,9 @@
 @import 'https://fonts.googleapis.com/css?family=Open+Sans:400,700|Titillium+Web:400,700';
 body {
     font-family: 'Titillium Web', sans-serif;
+    background-image: url('../assets/landingblur-img.jpg');
+    background-size: cover;
+    background-attachment: fixed;
 }
 *, :after, :before {
     box-sizing: initial;
@@ -65,12 +68,8 @@ body {
     height: 100%;
 }
 .main {
-    height: 635px;
+    height: 75%;
     width: 100%;
-    padding-top: 20vh;
-    background-image: url('../assets/landingblur-img.jpg');
-    background-size: cover;
-    background-attachment: fixed;
 }
 .footer {
     height: 430px;
@@ -145,18 +144,10 @@ body {
     }
 }
 //********************** UI-View Styles *************************//
-// .home-view:before {
-//     height: 100%;
-//     width: 100%;
-//     background: url('../assets/landing-img2.jpg') no-repeat center;
-//     background-size: cover;
-//     height: 100%;
-//     -webkit-filter: grayscale(100%) blur(8px);
-// }
 .home-view {
     height: 100%;
     width: 100%;
-    padding-top: 100px;
+    padding-top: 80px;
     .CTA-container {
         margin: auto;
         width: 650px;
@@ -307,6 +298,9 @@ svg {
     margin: auto;
     color: #151515;
     text-align: center;
+    padding-top: 135px;
+    //position: absolute;
+    //top: 135px;
     a {
       color: inherit;
     }
@@ -319,33 +313,45 @@ svg {
         cursor: pointer;
     }
 }
-//******************************* radio buttons ****************************//
-.container {
-    margin: 3% auto 0 auto;
-    height: 75%;
-    width: 400px;
-    position: relative;
+.highlight {
+  border-bottom: 4px solid #60d0e4;
+}
+.hide {
+    visibility: hidden;
+}
+.input-container {
+    height: 350px;
     background: white;
     border-radius: 20px;
+    width: 500px;
+    margin: 75px auto 0 auto;
     padding-top: 15px;
+
     a {
         &:hover {
             cursor: pointer;
         }
         img {
-            height: 20px;
-            width: 20px;
+            height: 15px;
+            width: 15px;
+            vertical-align: top;
         }
     }
+    .h2-1st {
+        margin-left: 70px;
+        display: inline;
+    }
     h2 {
+        margin: 25% 0 200px 30%;
+        width: 250px;
         color: #000;
         font-weight: normal;
-        margin-left: 18px;
+        //margin-left: 18px;
         display: inline;
     }
     ul {
         list-style: none;
-        height: 100%;
+        height: 79%;
         width: 100%;
         margin: 0;
         padding: 0;
@@ -389,7 +395,7 @@ svg {
                 height: 30px;
                 z-index: 9;
                 cursor: pointer;
-                -webkit-transition: all 0.25s linear;
+                transition: all 0.25s linear;
             }
             .check {
                 display: block;
@@ -402,7 +408,6 @@ svg {
                 left: 20px;
                 z-index: 5;
                 transition: border 0.25s linear;
-                -webkit-transition: border 0.25s linear;
             }
             .check::before {
                 display: block;
@@ -415,48 +420,7 @@ svg {
                 left: 1px;
                 margin: auto;
                 transition: background 0.25s linear;
-                -webkit-transition: background 0.25s linear;
             }
-        }
-    }
-}
-.highlight {
-  border-bottom: 4px solid #60d0e4;
-}
-.hide {
-    display: none;
-}
-ui-view {
-    height: 100%;
-}
-.next-btn {
-    position: absolute;
-    right: 28px;
-    bottom: 16px;
-    button {
-        // background-color: #60d0e4;
-    }
-}
-.input-container {
-    height: 75%;
-    background: white;
-    border-radius: 20px;
-    width: 500px;
-    margin: 3% auto 0 auto;
-    padding-top: 15px;
-    h2 {
-        color: #000;
-        font-weight: normal;
-        margin-left: 18px;
-        display: inline-block;
-    }
-    a {
-        &:hover {
-            cursor: pointer;
-        }
-        img {
-            height: 20px;
-            width: 20px;
         }
     }
 }
@@ -470,30 +434,6 @@ ui-view {
     text-align: left;
     padding-left: 30px;
 }
-// div[ui-view] {
-//     -webkit-transition: -webkit-transform .7s ease-in-out;
-//     -moz-transition: -moz-transform .7s ease-in-out;
-//     -o-transition: -o-transform .7s ease-in-out;
-//     transition: transform .7s ease-in-out;
-//     -webkit-transform: translateX(0);
-//     transform: translateX(0);
-// }
-//
-// div[ui-view].ng-enter {
-//     -webkit-transform: translateX(-100%);
-//     transform: translateX(-100%);
-// }
-//
-// div[ui-view].ng-enter.ng-enter-active, .slide.ng-leave {
-//     position: absolute;
-//     -webkit-transform: translateX(0);
-//     transform: translateX(0);
-// }
-
-// div[ui-view].ng-leave.ng-leave-active {
-//     -webkit-transform: translateX(100%);
-//     transform: translateX(100%);
-// }
 .info-box {
     display: none;
 }
@@ -508,6 +448,9 @@ ui-view {
     background-color: white;
     margin-top: 3%;
     border-radius: 20px;
+    h2 {
+        text-align: center;
+    }
 }
 .table-container {
     height: 75%;
@@ -515,6 +458,7 @@ ui-view {
     margin: 0 auto;
     padding-top: 15px;
     display: inline-block;
+    margin-left: 20px;
 }
 .table {
     margin: auto;
@@ -536,7 +480,7 @@ td {
     transition: all 500ms ease-in-out;
 }
 .table-heading {
-    font-size: 22px;
+    font-size: 20px;
     background: #60d0e4;
     border: 1px solid lightgray;
     height: 50px;
@@ -552,11 +496,183 @@ td {
     color: white;
 }
 .graph-container {
-    height: 390px;
-    width: 450px;
+    height: 340px;
+    width: 425px;
     display: inline-block;
-    margin-left: 40px;
+    margin-left: 30px;
 }
 .net {
     font-weight: 700;
+}
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 75%;
+}
+.slide.ng-enter,
+.slide.ng-leave {
+    transition: all 1s ease;
+}
+.slide.ng-enter {
+    left: 100%;
+}
+.slide.ng-enter-active {
+    left: 0%;
+}
+.slide.ng-leave {
+    left: 0%;
+}
+.slide.ng-leave-active {
+    left: -100%;
+}
+.collapse {
+    display: none;
+}
+.admin-nav {
+    position: fixed;
+    width: 250px;
+    height: 100vh;
+    background: #353942;
+    font-size: 22px;
+    img {
+        width: 100%;
+    }
+    ul {
+        padding-top: 10px;
+    }
+}
+.panel-items {
+    background-color: #353942;
+    height: 50px;
+    width: 100%;
+    color: white;
+    padding-top: 16px;
+    padding-left: 15px;
+    &:hover {
+        background-color: #494C55;
+    }
+}
+.cp-head {
+    color: white;
+    background: #5DCEE2;
+    margin-top: -3px;
+    padding-bottom: 20px;
+    h2 {
+        text-align: center;
+        padding-top: 20px;
+        font-size: 36px;
+        font-family: 'Open Sans', sans-serif;
+    }
+    .personalized {
+        margin-left: 15px;
+        img {
+            height: 35px;
+            width: 35px;
+            display: inline;
+        }
+        h3 {
+            display: inline;
+            vertical-align: super;
+        }
+    }
+
+}
+.cp-foot {
+    position: absolute;
+    bottom: 0;
+    background: #1B1F28;
+    height: 75px;
+    width: 100%;
+    padding: 12px 85px;
+    &:hover {
+        background: #121724;
+    }
+    img {
+        height: 50px;
+        width: auto;
+    }
+}
+.edit-area {
+    background-color: #f1f1f1;
+    width: 100vw;
+    height: 100vh;
+}
+.sub-items {
+    display: none;
+    li {
+        background-color: #353942;
+        height: 50px;
+        width: 100%;
+        color: white;
+        padding-top: 16px;
+        padding-left: 40px;
+        font-size: 18px;
+        &:hover {
+            background-color: #494C55;
+        }
+    }
+    &:hover {
+        display: block;
+    }
+}
+.dropdown {
+    &:hover {
+        cursor: pointer;
+    }
+}
+.rotate {
+    transform: rotate(90deg);
+}
+.edit-fields {
+    width: 850px;
+    padding-left: 250px;
+    margin: auto;
+    padding-top: 50vh;
+}
+.edit-input {
+    border: none;
+    //background: snow;
+    //border-bottom: 2px solid #353942;
+    margin: auto 10px;
+    text-align: center;
+}
+.edit-btn {
+    margin-left: 10px;
+}
+.bracket-container {
+    width: 1000px;
+    padding-top: 30vh;
+    padding-left: 250px;
+    margin: auto;
+    td input {
+        margin: auto 10px;
+        text-align: center;
+    }
+}
+.templ {
+    height: 40%;
+    margin: 15% auto 0 auto;
+    h2 {
+        margin: 25% 0 200px 30%;
+        width: 250px;
+    }
+    form {
+        width: 250px;
+        margin: 30px auto;
+    }
+}
+.templ-a {
+    position: relative;
+    left: 200px;
+}
+.w2-page {
+    padding-top: 30px;
+    width: 250px;
+    margin: 0 auto 30px auto;
+    .temp-in {
+        margin-bottom: 20px;
+    }
+}
+.lbl {
+    display: block;
 }

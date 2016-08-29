@@ -1,4 +1,4 @@
-angular.module('personal').service('mainService', function($http) {
+angular.module('personal').service('mainService', function($http, $location) {
 
     let client = {
         filingStatus: '',
@@ -146,6 +146,17 @@ angular.module('personal').service('mainService', function($http) {
                 }
             };
             let report = calcFederalIncomeTax(obj, brackets);
+            report.graphNet = [{
+                    name: 'W2 Employment',
+                    val: report.totalNet.w2
+                }, {
+                    name: 'S Corporation',
+                    val: report.totalNet.sCorp
+                }, {
+                    name: 'Sole Proprietorship',
+                    val: report.totalNet.soleProp
+                }
+            ];
             return report;
         });
     };
@@ -193,5 +204,6 @@ angular.module('personal').service('mainService', function($http) {
         obj.effectiveTaxRate.soleProp = Math.round((obj.totalTax.soleProp / obj.businessNet) * 100);
         return obj;
     };
+
 
 }); //End mainService

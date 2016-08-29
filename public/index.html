@@ -5,15 +5,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width initial-scale=1.0">
     <link rel="stylesheet" href="./styles/reset.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/alertifyjs/1.8.0/css/alertify.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/alertifyjs/1.8.0/css/alertify.min.css"> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.2/semantic.min.css">
+    <link rel="stylesheet" href="./scripts/sweetalert.css">
     <link rel="stylesheet" href="./dist/bundle.css">
     <link rel="icon" href="./assets/cropped-logotax-advisors.jpg">
     <title>Independent Contractor Tax Advisors | Lower Taxes for Independent Contractors and Freelancers</title>
 </head>
 
 <body>
-    <header class="header">
+    <header class="header" ng-class="{collapse: $state.current.name === 'admin' || $state.current.name === 'user-data' || $state.current.name === 'bracket-edit'}">
       <div class="center">
         <div class="nav-left logo">
           <a href="https://www.ictaxadvisors.com">
@@ -23,7 +24,7 @@
         <div class="nav-right">
           <div class="nav-links">
             <div class="contact">
-              <img ui-sref="login" src="./assets/ico_phone.jpg" alt="phone icon" />
+              <a href="/auth/facebook"><img src="./assets/ico_phone.jpg" alt="phone icon" /></a>
               <div class="text">
                 Toll Free: (888) 959-2829
               </div>
@@ -60,31 +61,29 @@
       </div>
     </header>
 
+    <div class="progress" ng-class="{hide: $state.current.name === 'home', collapse: $state.current.name === 'admin' || $state.current.name === 'user-data' || $state.current.name === 'bracket-edit'}">
+      <a ui-sref="filing-status"><span class="progress-item" ng-class="{highlight: $state.current.name === 'filing-status'}">Filing Status</span></a>
+      <a ui-sref="w2-income"><span class="progress-item" ng-class="{highlight: $state.current.name === 'w2-income'}">W2 Income</span></a>
+      <a ui-sref="business-income"><span class="progress-item" ng-class="{highlight: $state.current.name === 'business-income'}">Business Income</span></a>
+      <a ui-sref="deductions"><span class="progress-item" ng-class="{highlight: $state.current.name === 'deductions'}">Deductions</span></a>
+      <a ui-sref="exemptions"><span class="progress-item" ng-class="{highlight: $state.current.name === 'exemptions'}">Exemptions</span></a>
+      <a ui-sref="personal-expense"><span class="progress-item" ng-class="{highlight: $state.current.name === 'personal-expense'}">Personal Expense</span></a>
+      <a ui-sref="business-expense"><span class="progress-item" ng-class="{highlight: $state.current.name === 'business-expense'}">Business Expense</span></a>
+      <a ng-click="resultGate()"><span class="progress-item" ng-class="{highlight: $state.current.name === 'business-results'}">Results!</span></a>
+    </div>
+
 
 
     <main role="main" class=main>
 
-      <div class="progress" ng-class="{hide: $state.current.name === 'home' || $state.current.name ==='login'}">
-        <a ui-sref="filing-status"><span class="progress-item" ng-class="{highlight: $state.current.name === 'filing-status'}">Filing Status</span></a>
-        <a ui-sref="w2-income"><span class="progress-item" ng-class="{highlight: $state.current.name === 'w2-income'}">W2 Income</span></a>
-        <a ui-sref="business-income"><span class="progress-item" ng-class="{highlight: $state.current.name === 'business-income'}">Business Income</span></a>
-        <a ui-sref="deductions"><span class="progress-item" ng-class="{highlight: $state.current.name === 'deductions'}">Deductions</span></a>
-        <a ui-sref="exemptions"><span class="progress-item" ng-class="{highlight: $state.current.name === 'exemptions'}">Exemptions</span></a>
-        <a ui-sref="personal-expense"><span class="progress-item" ng-class="{highlight: $state.current.name === 'personal-expense'}">Personal Expense</span></a>
-        <a ui-sref="business-expense"><span class="progress-item" ng-class="{highlight: $state.current.name === 'business-expense'}">Business Expense</span></a>
-        <a ui-sref="business-results"><span class="progress-item" ng-class="{highlight: $state.current.name === 'business-results'}">Results!</span></a>
-      </div>
 
-      <!-- <div ui-view class="slide">
-
-      </div> -->
-        <ui-view></ui-view>
+      <div ui-view ng-class="{slide: $state.current.name !== 'admin' || $state.current.name !== 'user-data' || $state.current.name !== 'bracket-edit'}"></div>
 
 
     </main>
 
 
-    <footer class="footer">
+    <footer class="footer" ng-class="{collapse: $state.current.name === 'admin' || $state.current.name === 'user-data' || $state.current.name === 'bracket-edit'}">
         <div class="foot-top">
           <div class="center">
           <div class="blog-posts">
@@ -180,11 +179,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="./scripts/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-animate.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js"></script>
-    <script src="https://cdn.jsdelivr.net/alertifyjs/1.8.0/alertify.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/alertifyjs/1.8.0/alertify.min.js"></script> -->
+    <script src="./scripts/sweetalert-dev.js"></script>
     <script src="./scripts/typed.js"></script>
+    <!-- <script src="./scripts/bigSlide.js"></script> -->
     <script src="./dist/bundle.js"></script>
-    <!-- <script src="./test.js"></script> -->
 </body>
 
 </html>

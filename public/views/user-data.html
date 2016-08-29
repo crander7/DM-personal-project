@@ -1,0 +1,30 @@
+<div class="edit-area">
+    <side-nav></side-nav>
+    <div class="edit-fields">
+        <table>
+            <tr>
+                <td>
+                    <label>Name</label>
+                </td>
+                <td>
+                    <label>User Type</label>
+                </td>
+                <!-- <td>
+                    <label>Facebook ID</label>
+                </td> -->
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" class="edit-input" value="{{ fetchedUser.name }}" ng-model="fetchedUser.name">
+                </td>
+                <td>
+                    <input type="text" class="edit-input" value="{{ fetchedUser.type }}" ng-model="fetchedUser.type">
+                </td>
+                <!-- <td>
+                    <input type="text" class="edit-input" value="{{ fetchedUser.fb_id }}" ng-model="fetchedUser.fb_id">
+                </td> -->
+            </tr>
+        </table>
+        <button type="button" class="edit-btn" ng-click="updateUser(fetchedUser)">Update User</button>
+    </div>
+</div>

@@ -51,10 +51,68 @@ angular.module('personal').config(($stateProvider, $urlRouterProvider) => {
       templateUrl: '../views/business-results.html',
       controller: 'mainController'
     })
-    .state('login', {
-        url: '/login',
-        templateUrl: '../views/login.html',
-        controller: 'mainController'
+    .state('admin', {
+        url: '/admin',
+        templateUrl: '../views/admin.html',
+        controller: 'mainController',
+        resolve: {
+            requireAuthentication: function(userService, $state) {
+                // console.log('made it to resolve');
+                return userService.checkAuth().then(response => {
+                    // console.log("resolve checkAuth response: ", response[0]);
+                    if (response[0].type === 'admin') {
+                        // console.log("made it to admin page");
+                        // $state.go('admin');
+                    }
+                    else {
+                        // console.log('redirected home');
+                        $state.go('home');
+                    }
+                });
+            }
+        }
+    })
+    .state('user-data', {
+        url: '/user-update',
+        templateUrl: '../views/user-data.html',
+        controller: 'mainController',
+        resolve: {
+            requireAuthentication: function(userService, $state) {
+                // console.log('made it to resolve');
+                return userService.checkAuth().then(response => {
+                    // console.log("resolve checkAuth response: ", response[0]);
+                    if (response[0].type === 'admin') {
+                        // console.log("made it to admin page");
+                        // $state.go('admin');
+                    }
+                    else {
+                        // console.log('redirected home');
+                        $state.go('home');
+                    }
+                });
+            }
+        }
+    })
+    .state('bracket-edit', {
+        url: '/bracket-edit',
+        templateUrl: '../views/bracket-edit.html',
+        controller: 'mainController',
+        resolve: {
+            requireAuthentication: function(userService, $state) {
+                // console.log('made it to resolve');
+                return userService.checkAuth().then(response => {
+                    // console.log("resolve checkAuth response: ", response[0]);
+                    if (response[0].type === 'admin') {
+                        // console.log("made it to admin page");
+                        // $state.go('admin');
+                    }
+                    else {
+                        // console.log('redirected home');
+                        $state.go('home');
+                    }
+                });
+            }
+        }
     });
 
 

@@ -1,0 +1,46 @@
+<div class="admin-nav">
+    <div class="cp-head">
+        <h2>Welcome!</h2>
+        <div class="personalized">
+            <a href="https://www.ictaxadvisors.com"><img src="..\assets\cropped-logotax-advisors.jpg" alt="" /></a>
+            <h3>{{ user.name }}</h2>
+        </div>
+    </div>
+    <ul class="options">
+            <li class="panel-items dropdown" id="manage-admin">‣ Manage admins</li>
+            <ul class="sub-items" id="manage-admin-list">
+                <a><li ng-click="userPrompt()">Add Admin</li></a>
+                <a href="#"><li>Remove Admin</li></a>
+            </ul>
+            <li class="panel-items dropdown" id="view-users">‣ View Users</li>
+            <ul class="sub-items" id="view-users-list">
+                <a href="#"><li>View all Admins</li></a>
+                <a href="#"><li>View all Users</li></a>
+                <a href="#"><li>Find User</li></a>
+            </ul>
+            <li class="panel-items dropdown" id="manage-brackets">‣ Edit Tax Brackets</li>
+            <ul class="sub-items" id="manage-brackets-list">
+                <a><li ng-click="getBrackets('single')">Single</li></a>
+                <a><li ng-click="getBrackets('married-filing-jointly')">Married Filing Jointly</li></a>
+                <a><li ng-click="getBrackets('married-filing-separately')">Married Filing Separately</li></a>
+                <a><li ng-click="getBrackets('head-of-household')">Head of Household</li></a>
+            </ul>
+        <!-- <a href="#">
+            <li class="panel-items">Tax Rates</li>
+        </a> -->
+        <a href="#">
+            <li class="panel-items">FICA</li>
+        </a>
+        <a href="#">
+            <li class="panel-items">Std Deductions</li>
+        </a>
+        <a href="#">
+            <li class="panel-items">Misc Exempt/Limits</li>
+        </a>
+    </ul>
+    <a href="#" class="logout-btn">
+        <div class="cp-foot">
+        <img src="../assets/logout.png" alt="" />
+        </div>
+    </a>
+</div>

@@ -3,17 +3,17 @@ angular.module('personal').directive('barChart', () => {
   return {
     restrict: 'A',
     link: (scope, element, attrs) => {
+        setTimeout(() => {
 
       let margin = {
         top: 20,
         right: 10,
         bottom: 100,
-        left: 50
+        left: 65
       },
 
-      width = 450 - margin.right - margin.left,
-      height = 500 - margin.top - margin.bottom;
-
+      width = 420 - margin.right - margin.left,
+      height = 450 - margin.top - margin.bottom;
 
       let svg = d3.select(".graph-container")
       .append("svg")
@@ -43,18 +43,18 @@ angular.module('personal').directive('barChart', () => {
       .orient("left");
 
 
-      let data = myData;
+      let data = scope.$root.report.graphNet;
 
-      // sort the gdp values
-      // data.sort(function(a, b) {
-      //     return b.gdp - a.gdp;
-      // });
+    //   sort the gdp values
+      data.sort(function(a, b) {
+          return b.val - a.val;
+      });
 
       xScale.domain(data.map(function(d) {
         return d.name;
       }));
       yScale.domain([0, d3.max(data, function(d) {
-        return d.age;
+        return d.val;
       })]);
 
       svg.selectAll('rect')
@@ -73,15 +73,15 @@ angular.module('personal').directive('barChart', () => {
           return xScale(d.name);
         },
         "y": function(d) {
-          return yScale(d.age);
+          return yScale(d.val);
         },
         "width": xScale.rangeBand(),
         "height": function(d) {
-          return height - yScale(d.age);
+          return height - yScale(d.val);
         }
       })
       .style("fill", function(d, i) {
-        return 'rgb(20, 10, ' + ((i * 40) + 150) + ')'
+        return 'rgb(20, 10, ' + (-((i + 1) * 50) + 255) + ')'
       });
 
 
@@ -89,18 +89,19 @@ angular.module('personal').directive('barChart', () => {
       .data(data)
       .enter()
       .append('text')
-
-
-
       .text(function(d) {
-        return d.age;
+          let splitStr = d.val.toString().split('');
+          splitStr.splice(-3, 0, ",");
+          splitStr.push(".00");
+          let result = splitStr.join('');
+          return "$" + result;
       })
       .attr({
         "x": function(d) {
           return xScale(d.name) + xScale.rangeBand() / 2;
         },
         "y": function(d) {
-          return yScale(d.age) + 12;
+          return yScale(d.val) + 20;
         },
         "font-family": 'sans-serif',
         "font-size": '13px',
@@ -111,14 +112,14 @@ angular.module('personal').directive('barChart', () => {
 
       // Draw xAxis and position the label
       svg.append("g")
+      .data(data)
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis)
       .selectAll("text")
       .attr("dx", "-.8em")
-      .attr("dy", ".25em")
-      .attr("transform", "rotate(-60)")
-      .style("text-anchor", "end")
+      .attr("dy", ".75em")
+      .style("text-anchor", "middle")
       .attr("font-size", "10px");
 
 
@@ -128,10 +129,14 @@ angular.module('personal').directive('barChart', () => {
       .call(yAxis)
       .append("text")
       .attr("transform", "rotate(-90)")
-      .attr("x", -height / 2)
-      .attr("dy", "-3em")
+      .attr("class", "axislabel")
       .style("text-anchor", "middle")
-      .text("Age in Years");
+      .attr("x", 0 - (height / 2))
+      .attr("dy", "-4.5em")
+      .text("Net in Dollars");
+
+  }, 600);
+
     }
 
 
@@ -141,22 +146,3 @@ angular.module('personal').directive('barChart', () => {
 
 
 });//End bar Chart Directive
-
-var myData = [
-    {
-        name: "Aye",
-        age: 27
-    }, {
-        name: "Jadyn",
-        age: 7
-    }, {
-        name: "Craig",
-        age: 29
-    }, {
-        name: "Christine",
-        age: 13
-    }, {
-        name: "Nathan",
-        age: 11
-    }
-];
