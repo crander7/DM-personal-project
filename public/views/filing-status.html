@@ -1,6 +1,8 @@
-<div class="input-container">
-	<h2 class="h2-1st">Please select your filing status:</h2>
-	<a ng-click="showHelp()"><img src="../assets/info-icon.png"></a>
+<div class="input-container" id="married">
+	<div class="input-heading">
+		<h2>Filing status</h2>
+		<a ng-click="showHelp()"><img src="../assets/info-icon.png"></a>
+	</div>
 	<ul>
 		<li>
 			<input type="radio" id="f-option" name="status" ng-model="filer" value="single">
@@ -32,7 +34,7 @@
 			</div>
 		</li>
 	</ul>
-	<a class="templ-a" ng-click="radioCheck(filer)" class='next-btn'>
+	<a class="templ-a diff" ng-click="radioCheck(filer)" class='next-btn'>
 		<button type="button" name="button">Proceed</button>
 	</a>
 </div>

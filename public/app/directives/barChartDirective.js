@@ -46,9 +46,9 @@ angular.module('personal').directive('barChart', () => {
       let data = scope.$root.report.graphNet;
 
     //   sort the gdp values
-      data.sort(function(a, b) {
-          return b.val - a.val;
-      });
+    //   data.sort(function(a, b) {
+    //       return b.val - a.val;
+    //   });
 
       xScale.domain(data.map(function(d) {
         return d.name;
@@ -81,7 +81,15 @@ angular.module('personal').directive('barChart', () => {
         }
       })
       .style("fill", function(d, i) {
-        return 'rgb(20, 10, ' + (-((i + 1) * 50) + 255) + ')'
+          if (i === 0) {
+              return '#62B6CB';
+          }
+          else if (i === 1) {
+              return '#1B4965';
+          }
+          else {
+              return '#5FA8D3';
+          }
       });
 
 

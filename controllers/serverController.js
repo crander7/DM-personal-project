@@ -10,7 +10,7 @@ module.exports = {
                 });
             }
             else {
-                res.statusCode(404);
+                res.sendStatus(404);
             }
         },
         //for client
@@ -21,13 +21,12 @@ module.exports = {
                 });
             }
             else {
-                res.statusCode(404);
+                res.sendStatus(404);
             }
         },
         //for admin
         getBrackets: (req, res, next) => {
             db.get_bracket([req.params.status], (err, response) => {
-                console.log("error", err, "db response", response);
                 res.json(response);
             });
         }

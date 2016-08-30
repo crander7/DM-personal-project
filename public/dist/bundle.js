@@ -113,13 +113,6 @@ angular.module('personal').controller('mainController', function ($rootScope, $s
     $rootScope.$state = $state;
 
     $scope.alert = function (calc) {
-        // alertify.alert("Heads Up", "We just need to ask you a few questions!", () => {
-        //     alertify.success('Ok, Lets Start!');
-        //     $state.go(calc);
-        // }).set({
-        //     transition: 'slide',
-        //     movable: false
-        // }).show();
         swal({
             title: 'We just need to ask you a few questions!',
             showCancelButton: true,
@@ -138,53 +131,73 @@ angular.module('personal').controller('mainController', function ($rootScope, $s
     };
 
     var destPicker = function destPicker() {
-        var state = $state.current.name;
-        switch (state) {
-            case 'filing-status':
-                $state.go('w2-income');
-                break;
-            case 'w2-income':
-                $state.go('business-income');
-                break;
-            case 'business-income':
-                $state.go('deductions');
-                break;
-            case 'deductions':
-                $state.go('exemptions');
-                break;
-            case 'exemptions':
-                $state.go('personal-expense');
-                break;
-            case 'personal-expense':
-                $state.go('business-expense');
-                break;
-            case 'business-expense':
-                $state.go('business-results');
-                break;
-            default:
-                $state.go('home');
+        if ($scope.done === true) {
+            mainService.getTaxData().then(function (response) {
+                mainService.getBrackets(response).then(function (result) {
+                    console.log(result);
+                    $rootScope.report = result;
+                    $rootScope.done = true;
+                });
+            });
+            $state.go('business-results');
+        } else {
+            var state = $state.current.name;
+            switch (state) {
+                case 'filing-status':
+                    $state.go('w2-income');
+                    break;
+                case 'w2-income':
+                    $state.go('business-income');
+                    break;
+                case 'business-income':
+                    $state.go('deductions');
+                    break;
+                case 'deductions':
+                    $state.go('exemptions');
+                    break;
+                case 'exemptions':
+                    $state.go('personal-expense');
+                    break;
+                case 'personal-expense':
+                    $state.go('business-expense');
+                    break;
+                case 'business-expense':
+                    $state.go('business-results');
+                    break;
+                default:
+                    $state.go('home');
+            }
         }
     };
 
     $scope.proceed = function (num, num2) {
-        if (isNaN(num) || num === '' || $state.current.name === 'w2-income' && isNaN(num2)) {
+        if (num2) {
+            if (num2.indexOf(',') > -1) {
+                var i = num2.indexOf(',');
+                var tempArr = num2.split('');
+                tempArr.splice(i, 1);
+                num2 = tempArr.join('');
+            }
+        }
+        if (num) {
+            if (num.indexOf(',') > -1) {
+                var _i = num.indexOf(',');
+                var _tempArr = num.split('');
+                _tempArr.splice(_i, 1);
+                num = _tempArr.join('');
+            }
+        }
+        if (isNaN(num) || num === '' || $state.current.name === 'w2-income' && isNaN(num2) || $state.current.name === 'w2-income' && num2 === undefined) {
             $scope.num = '';
-            // alertify.alert("Invalid Entry", "Please enter a number even if its a 0.", () => {
-            //     alertify.message('click i for more info.');
-            // }).set({
-            //     transition: 'slide',
-            //     movable: false
-            // }).show();
             swal({
                 title: "Invalid Entry",
                 text: "Please enter a number even if it's zero",
                 closeOnConfirm: false,
                 allowOutsideClick: true
             }, function (isConfirm) {
-                swal("Please click i for more info", "", "information");
+                swal("Please click i for more info", "", "info");
             });
         } else {
-            // alertify.success('Awesome!');
             mainService.addToClient(num, $state.current.name, num2);
             if ($state.current.name === 'business-expense') {
                 mainService.getTaxData().then(function (response) {
@@ -198,21 +211,7 @@ angular.module('personal').controller('mainController', function ($rootScope, $s
             destPicker();
         }
     };
-
-    $scope.reProcess = function (num, num2) {
-        if (num) {
-            mainService.addToClient(num, $state.current.name, num2);
-        }
-        mainService.getTaxData().then(function (response) {
-            mainService.getBrackets(response).then(function (result) {
-                console.log(result);
-                $rootScope.report = result;
-                $rootScope.done = true;
-            });
-        });
-        $state.go('business-results');
-    };
-
+    //This is what displays the view name for the questionaire
     (function () {
         var rawName = $state.current.name;
         var nameArr = [];
@@ -232,12 +231,6 @@ angular.module('personal').controller('mainController', function ($rootScope, $s
     $scope.filer = null;
     $scope.radioCheck = function (val) {
         if (val === null) {
-            // alertify.alert("Error", "Please select a filing status.", () => {
-            //     alertify.message("Click i for more information");
-            // }).set({
-            //     transition: 'slide',
-            //     movable: false
-            // }).show();
             swal({
                 title: "Invalid Entry",
                 text: "Please enter a number even if it's zero",
@@ -253,17 +246,6 @@ angular.module('personal').controller('mainController', function ($rootScope, $s
                 destPicker();
             }
         }
-    };
-
-    $scope.runTest = function () {
-        mainService.test('married-filing-jointly', '100000', '60000', '110000', '15000', '4', '3500', '2800');
-        mainService.getTaxData().then(function (response) {
-            mainService.getBrackets(response).then(function (result) {
-                console.log(result);
-                $rootScope.report = result;
-                $rootScope.done = true;
-            });
-        });
     };
 
     $scope.showHelp = function () {
@@ -294,12 +276,6 @@ angular.module('personal').controller('mainController', function ($rootScope, $s
             default:
                 info = "Unable to find help for this topic";
         }
-        // alertify.alert(`${$scope.pageName} help`, info, () => {
-        //
-        // }).set({
-        //     transition: 'zoom',
-        //     movable: false
-        // }).show();
         swal({
             title: $scope.pageName + ' help',
             text: info,
@@ -308,13 +284,9 @@ angular.module('personal').controller('mainController', function ($rootScope, $s
     };
 
     $rootScope.resultGate = function () {
-        console.log($rootScope.done);
         if ($rootScope.done === true) {
             $state.go('business-results');
         } else {
-            // alertify.alert("Denied", "Please finish answering the questions to see your Personal Report", () => {
-
-            // }).show();
             swal("Denied", "Please finish the assessment to see your Personal Report.", "error");
         }
     };
@@ -331,9 +303,6 @@ angular.module('personal').controller('mainController', function ($rootScope, $s
     $scope.updateUser = function (user) {
         console.log("mainController", user);
         userService.updateUser(user).then(function (response) {
-            // alertify.alert('Server message', response, () => {
-            //     $state.go('admin');
-            // }).show();
             console.log(response);
             swal({
                 title: 'Server message',
@@ -346,7 +315,6 @@ angular.module('personal').controller('mainController', function ($rootScope, $s
     };
 
     $scope.userPrompt = function () {
-        // alertify.prompt("Who would you like to add as an admin?", "Name", (evt, value) => {
         swal({
             title: 'Who would you like to grant admin access?',
             text: '',
@@ -364,7 +332,6 @@ angular.module('personal').controller('mainController', function ($rootScope, $s
             console.log(input);
             $scope.getUser(input);
         });
-        // });
     };
 
     $scope.getBrackets = function (status) {
@@ -375,6 +342,33 @@ angular.module('personal').controller('mainController', function ($rootScope, $s
             console.log($scope.brackets);
             $state.go('bracket-edit');
         });
+    };
+
+    $scope.showSuccess = function () {
+        swal({
+            title: "Success",
+            text: "Bracket Successfully Updated",
+            allowOutsideClick: true
+        });
+    };
+
+    (function () {
+        if ($state.current.name === 'business-income') {
+            $scope.loc = '../assets/revenue.jpg';
+        } else if ($state.current.name === 'deductions') {
+            $scope.loc = '../assets/deduction.jpg';
+        } else if ($state.current.name === 'exemptions') {
+            $scope.loc = '../assets/exemptions.jpg';
+        } else if ($state.current.name === 'personal-expense') {
+            $scope.loc = '../assets/personal.jpg';
+        } else if ($state.current.name === 'business-expense') {
+            $scope.loc = '../assets/business.png';
+        }
+    })();
+
+    $scope.background = {
+        "background": 'url(' + $scope.loc + ')',
+        "background-size": "cover"
     };
 }); //End mainController
 'use strict';
@@ -413,9 +407,9 @@ angular.module('personal').directive('barChart', function () {
         var data = scope.$root.report.graphNet;
 
         //   sort the gdp values
-        data.sort(function (a, b) {
-          return b.val - a.val;
-        });
+        //   data.sort(function(a, b) {
+        //       return b.val - a.val;
+        //   });
 
         xScale.domain(data.map(function (d) {
           return d.name;
@@ -440,7 +434,13 @@ angular.module('personal').directive('barChart', function () {
             return _height - yScale(d.val);
           }
         }).style("fill", function (d, i) {
-          return 'rgb(20, 10, ' + (-((i + 1) * 50) + 255) + ')';
+          if (i === 0) {
+            return '#62B6CB';
+          } else if (i === 1) {
+            return '#1B4965';
+          } else {
+            return '#5FA8D3';
+          }
         });
 
         svg.selectAll('text').data(data).enter().append('text').text(function (d) {
@@ -554,6 +554,16 @@ angular.module('personal').service('mainService', function ($http, $location) {
     };
 
     this.addToClient = function (val, loc, val2) {
+        if (val2) {
+            if (val2.indexOf(',') > -1) {
+                var i = val2.indexOf(',');
+                val2.splice(i, 1);
+            }
+        }
+        if (val.indexOf(',') > -1) {
+            var _i = val.indexOf(',');
+            val.splice(_i, 1);
+        }
         switch (loc) {
             case 'filing-status':
                 client.filingStatus = val;
@@ -687,6 +697,17 @@ angular.module('personal').service('mainService', function ($http, $location) {
                 name: 'Sole Proprietorship',
                 val: report.totalNet.soleProp
             }];
+            obj.w2Wages = formater(obj.w2Wages);
+            obj.businessNet = formater(obj.businessNet);
+            obj.totalTax.w2 = formater(obj.totalTax.w2);
+            obj.totalTax.sCorp = formater(obj.totalTax.sCorp);
+            obj.totalTax.soleProp = formater(obj.totalTax.soleProp);
+            obj.businessExpense = formater(obj.businessExpense);
+            obj.totalExpense.sCorp = formater(obj.totalExpense.sCorp);
+            obj.totalExpense.soleProp = formater(obj.totalExpense.soleProp);
+            obj.totalNet.w2 = formater(obj.totalNet.w2);
+            obj.totalNet.sCorp = formater(obj.totalNet.sCorp);
+            obj.totalNet.soleProp = formater(obj.totalNet.soleProp);
             return report;
         });
     };
@@ -705,7 +726,7 @@ angular.module('personal').service('mainService', function ($http, $location) {
             stageTwo.federalIncomeTax.w2 = Math.round(brackets.fedTaxRate.w2.plus + (stageTwo.taxableIncome.w2 - brackets.fedTaxRate.w2.bottom) * brackets.fedTaxRate.w2.rate);
         }
         stageTwo.totalTax.w2 = stageTwo.federalIncomeTax.w2 + stageTwo.fica.w2;
-        stageTwo.totalNet.w2 = stageTwo.w2Wages - stageTwo.totalTax.w2;
+        stageTwo.totalNet.w2 = Math.round(stageTwo.w2Wages - stageTwo.totalTax.w2);
         stageTwo.effectiveTaxRate.w2 = Math.round(stageTwo.totalTax.w2 / stageTwo.w2Wages * 100);
         var completedObj = stageTwo;
         return completedObj;
@@ -718,7 +739,7 @@ angular.module('personal').service('mainService', function ($http, $location) {
         }
         obj.totalTax.sCorp = obj.federalIncomeTax.sCorp + obj.fica.sCorp;
         obj.totalExpense.sCorp = obj.businessExpense + obj.totalTax.sCorp;
-        obj.totalNet.sCorp = obj.businessNet - obj.totalExpense.sCorp;
+        obj.totalNet.sCorp = Math.round(obj.businessNet - obj.totalExpense.sCorp);
         obj.effectiveTaxRate.sCorp = Math.round(obj.totalTax.sCorp / obj.businessNet * 100);
         return obj;
     };
@@ -730,9 +751,17 @@ angular.module('personal').service('mainService', function ($http, $location) {
         }
         obj.totalTax.soleProp = obj.federalIncomeTax.soleProp + obj.fica.soleProp;
         obj.totalExpense.soleProp = obj.totalTax.soleProp;
-        obj.totalNet.soleProp = obj.businessNet - obj.totalExpense.soleProp;
+        obj.totalNet.soleProp = Math.round(obj.businessNet - obj.totalExpense.soleProp);
         obj.effectiveTaxRate.soleProp = Math.round(obj.totalTax.soleProp / obj.businessNet * 100);
         return obj;
+    };
+
+    var formater = function formater(val) {
+        var splitStr = val.toString().split('');
+        splitStr.splice(-3, 0, ",");
+        // splitStr.push(".00");
+        var result = splitStr.join('');
+        return result;
     };
 }); //End mainService
 'use strict';

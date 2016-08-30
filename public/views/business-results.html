@@ -1,5 +1,5 @@
 <div class="results">
-    <h2>Here is your Personalized Report</h2>
+    <!-- <h2>Here is your Personalized Report</h2> -->
 
 <div class="table-container">
     <table class="table">
@@ -21,13 +21,13 @@
             <td class="table-catagory">
                 Total Income
             </td>
-            <td class="w2">
+            <td>
                 ${{ report.w2Wages }}
             </td>
-            <td class="sCorp">
+            <td>
                 ${{ report.businessNet }}
             </td>
-            <td class="soleProp">
+            <td>
                 ${{ report.businessNet }}
             </td>
         </tr>
@@ -35,13 +35,13 @@
             <td class="table-catagory">
                 Total Federal Taxes
             </td>
-            <td class="w2">
+            <td>
                 ${{ report.totalTax.w2 }}
             </td>
-            <td class="sCorp">
+            <td>
                 ${{ report.totalTax.sCorp }}
             </td>
-            <td class="soleProp">
+            <td>
                 ${{ report.totalTax.soleProp }}
             </td>
         </tr>
@@ -49,13 +49,13 @@
             <td class="table-catagory">
                 Professional Services
             </td>
-            <td class="w2">
+            <td>
                 N/A
             </td>
-            <td class="sCorp">
+            <td>
                 ${{ report.businessExpense }}
             </td>
-            <td class="soleProp">
+            <td>
                 N/A
             </td>
         </tr>
@@ -63,13 +63,13 @@
             <td class="table-catagory">
                 Total Tax & Expenses
             </td>
-            <td class="w2">
+            <td>
                 ${{ report.totalTax.w2 }}
             </td>
-            <td class="sCorp">
+            <td>
                 ${{ report.totalExpense.sCorp }}
             </td>
-            <td class="soleProp">
+            <td>
                 ${{ report.totalExpense.soleProp }}
             </td>
         </tr>
@@ -77,13 +77,13 @@
             <td class="table-catagory">
                 Effective Tax Rate
             </td>
-            <td class="w2">
+            <td>
                 {{ report.effectiveTaxRate.w2 }}%
             </td>
-            <td class="sCorp">
+            <td>
                 {{ report.effectiveTaxRate.sCorp }}%
             </td>
-            <td class="soleProp">
+            <td>
                 {{ report.effectiveTaxRate.soleProp }}%
             </td>
         </tr>
@@ -91,20 +91,18 @@
             <td class="table-catagory">
                 Net Income
             </td>
-            <td class="w2 net">
+            <td class="net">
                 ${{ report.totalNet.w2 }}
             </td>
-            <td class="sCorp net">
+            <td class="net">
                 ${{ report.totalNet.sCorp }}
             </td>
-            <td class="soleProp net">
+            <td class="net">
                 ${{ report.totalNet.soleProp }}
             </td>
         </tr>
     </table>
-    <a ui-sref="login"><button type="button" name="button">Email results</button></a>
-    <a ng-click="reProcess()"><button type="button" name="button">Re-Process</button></a>
-    <a ng-click="runTest()"><button type="button" name="button">test data</button></a>
+    <!-- <a href="/auth/facebook"><button type="button" name="button">Email results</button></a> -->
 </div>
 <div class="graph-container" bar-chart></div>
 </div>

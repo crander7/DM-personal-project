@@ -1,6 +1,8 @@
-<div class="input-container">
-    <h2>{{ pageName }}</h2>
-    <a ng-click="showHelp()"><img src="../assets/info-icon.png" /></a>
+<div class="input-container" id="w2">
+    <div class="input-heading">
+        <h2>{{ pageName }}</h2>
+        <a ng-click="showHelp()"><img src="../assets/info-icon.png" /></a>
+    </div>
     <div class="w2-page">
         <label class="lbl">W2 income if employed</label>
         <input class="input-box temp-in" type="text" ng-model="num">
@@ -9,7 +11,7 @@
             <input class="input-box" type="text" ng-model='num2'>
         </form>
     </div>
-    <a class="templ-a" ng-click="proceed(num, num2)">
+    <a class="templ-a diff" ng-click="proceed(num, num2)">
       <button type="button" name="button">Proceed</button>
     </a>
 </div>

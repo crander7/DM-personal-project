@@ -1,10 +1,12 @@
-<div class="input-container templ">
-    <h2>{{ pageName }}</h2>
-    <a ng-click="showHelp()"><img src="../assets/info-icon.png" /></a>
+<div class="input-container templ" ng-style="background">
+    <div class="input-heading">
+        <h2>{{ pageName }}</h2>
+        <a ng-click="showHelp()"><img src="../assets/info-icon.png" /></a>
+    </div>
     <form ng-submit='proceed(num)'>
-        <input class="input-box temp-in" type="text" ng-model="num">
+        <input class="input-box temp-in" ng-class="{noDolla: $state.current.name === 'exemptions'}" type="text" ng-model="num">
     </form>
     <a class="templ-a" ng-click="proceed(num)">
-      <button type="button" name="button">Process</button>
+      <button type="button" name="button">Proceed</button>
     </a>
 </div>

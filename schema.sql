@@ -93,9 +93,9 @@ CREATE TABLE users
 (
     user_id SERIAL PRIMARY KEY,
     name VARCHAR(40),
-    -- password VARCHAR(40),
     type VARCHAR(10),
+    email VARCHAR(60),
     fb_id VARCHAR(40)
 );
 
-INSERT INTO users (name, type, fb_id) VALUES ('Craig M Andersen', 'admin', '10101273018848754');
+INSERT INTO users (name, type, email, fb_id) VALUES ('Craig M Andersen', 'admin', 'andersen.craigm@gmail.com', '10101273018848754');

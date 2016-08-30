@@ -16,10 +16,8 @@ const db = app.get('db');
 
 var requireAuth = (req, res, next) => {
     if (req.isAuthenticated()) {
-        // console.log('authorized');
         return next();
     }
-    // console.log("unauthorized");
     res.redirect('/');
 };
 
@@ -60,7 +58,7 @@ passport.deserializeUser((obj, done) => {
 });
 
 app.get('/login', requireAuth, (req, res, next) => {
-    res.redirect('/#/admin')
+    res.redirect('/#/admin');
 });
 app.get('/me', requireAuth, users.checkAuth);
 

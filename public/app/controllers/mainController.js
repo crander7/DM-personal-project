@@ -3,13 +3,6 @@ angular.module('personal').controller('mainController', ($rootScope, $scope, $st
     $rootScope.$state = $state;
 
     $scope.alert = calc => {
-        // alertify.alert("Heads Up", "We just need to ask you a few questions!", () => {
-        //     alertify.success('Ok, Lets Start!');
-        //     $state.go(calc);
-        // }).set({
-        //     transition: 'slide',
-        //     movable: false
-        // }).show();
         swal({
             title: 'We just need to ask you a few questions!',
             showCancelButton: true,
@@ -29,55 +22,76 @@ angular.module('personal').controller('mainController', ($rootScope, $scope, $st
     };
 
     let destPicker = () => {
-        let state = $state.current.name;
-        switch (state) {
-            case 'filing-status':
+        if ($scope.done === true) {
+            mainService.getTaxData().then(response => {
+                mainService.getBrackets(response).then(result => {
+                    console.log(result);
+                    $rootScope.report = result;
+                    $rootScope.done = true;
+                });
+            });
+            $state.go('business-results');
+        }
+        else {
+            let state = $state.current.name;
+            switch (state) {
+                case 'filing-status':
                 $state.go('w2-income');
                 break;
-            case 'w2-income':
+                case 'w2-income':
                 $state.go('business-income');
                 break;
-            case 'business-income':
+                case 'business-income':
                 $state.go('deductions');
                 break;
-            case 'deductions':
+                case 'deductions':
                 $state.go('exemptions');
                 break;
-            case 'exemptions':
+                case 'exemptions':
                 $state.go('personal-expense');
                 break;
-            case 'personal-expense':
+                case 'personal-expense':
                 $state.go('business-expense');
                 break;
-            case 'business-expense':
+                case 'business-expense':
                 $state.go('business-results');
                 break
-            default:
+                default:
                 $state.go('home');
+            }
         }
     };
 
     $scope.proceed = (num, num2) => {
-        if (isNaN(num) || num === '' || ($state.current.name === 'w2-income' && isNaN(num2))) {
+        if (num2) {
+            if (num2.indexOf(',') > -1) {
+                let i = num2.indexOf(',');
+                let tempArr = num2.split('');
+                tempArr.splice(i, 1);
+                num2 = tempArr.join('');
+            }
+        }
+        if (num) {
+            if (num.indexOf(',') > -1) {
+                let i = num.indexOf(',');
+                let tempArr = num.split('');
+                tempArr.splice(i, 1);
+                num = tempArr.join('');
+            }
+        }
+        if (isNaN(num) || num === '' || ($state.current.name === 'w2-income' && isNaN(num2)) || ($state.current.name === 'w2-income' && num2 === undefined)) {
             $scope.num = '';
-            // alertify.alert("Invalid Entry", "Please enter a number even if its a 0.", () => {
-            //     alertify.message('click i for more info.');
-            // }).set({
-            //     transition: 'slide',
-            //     movable: false
-            // }).show();
             swal({
                 title: "Invalid Entry",
                 text: "Please enter a number even if it's zero",
                 closeOnConfirm: false,
                 allowOutsideClick: true
             }, isConfirm => {
-                swal("Please click i for more info", "", "information");
+                swal("Please click i for more info", "", "info");
             });
 
         }
         else {
-            // alertify.success('Awesome!');
             mainService.addToClient(num, $state.current.name, num2);
             if ($state.current.name === 'business-expense') {
                 mainService.getTaxData().then(response => {
@@ -91,21 +105,7 @@ angular.module('personal').controller('mainController', ($rootScope, $scope, $st
             destPicker();
         }
     };
-
-    $scope.reProcess = (num, num2) => {
-        if (num) {
-            mainService.addToClient(num, $state.current.name, num2);
-        }
-        mainService.getTaxData().then(response => {
-            mainService.getBrackets(response).then(result => {
-                console.log(result);
-                $rootScope.report = result;
-                $rootScope.done = true;
-            });
-        });
-        $state.go('business-results');
-    };
-
+    //This is what displays the view name for the questionaire
     (() => {
         let rawName = $state.current.name;
         let nameArr = [];
@@ -126,12 +126,6 @@ angular.module('personal').controller('mainController', ($rootScope, $scope, $st
     $scope.filer = null;
     $scope.radioCheck = (val) => {
         if (val === null) {
-            // alertify.alert("Error", "Please select a filing status.", () => {
-            //     alertify.message("Click i for more information");
-            // }).set({
-            //     transition: 'slide',
-            //     movable: false
-            // }).show();
             swal({
                 title: "Invalid Entry",
                 text: "Please enter a number even if it's zero",
@@ -149,17 +143,6 @@ angular.module('personal').controller('mainController', ($rootScope, $scope, $st
                 destPicker();
             }
         }
-    };
-
-    $scope.runTest = () => {
-        mainService.test('married-filing-jointly', '100000', '60000', '110000', '15000', '4', '3500', '2800');
-        mainService.getTaxData().then(response => {
-            mainService.getBrackets(response).then(result => {
-                console.log(result);
-                $rootScope.report = result;
-                $rootScope.done = true;
-            });
-        });
     };
 
     $scope.showHelp = () => {
@@ -190,12 +173,6 @@ angular.module('personal').controller('mainController', ($rootScope, $scope, $st
             default:
                 info = "Unable to find help for this topic";
         }
-        // alertify.alert(`${$scope.pageName} help`, info, () => {
-        //
-        // }).set({
-        //     transition: 'zoom',
-        //     movable: false
-        // }).show();
         swal({
             title: `${$scope.pageName} help`,
             text: info,
@@ -204,14 +181,10 @@ angular.module('personal').controller('mainController', ($rootScope, $scope, $st
     };
 
     $rootScope.resultGate = () => {
-        console.log($rootScope.done);
         if ($rootScope.done === true) {
             $state.go('business-results');
         }
         else {
-            // alertify.alert("Denied", "Please finish answering the questions to see your Personal Report", () => {
-
-            // }).show();
             swal("Denied", "Please finish the assessment to see your Personal Report.", "error");
         }
     };
@@ -228,9 +201,6 @@ angular.module('personal').controller('mainController', ($rootScope, $scope, $st
     $scope.updateUser = user => {
         console.log("mainController", user);
         userService.updateUser(user).then(response => {
-            // alertify.alert('Server message', response, () => {
-            //     $state.go('admin');
-            // }).show();
             console.log(response);
             swal({
                 title: 'Server message',
@@ -243,7 +213,6 @@ angular.module('personal').controller('mainController', ($rootScope, $scope, $st
     };
 
     $scope.userPrompt = () => {
-        // alertify.prompt("Who would you like to add as an admin?", "Name", (evt, value) => {
         swal({
             title: 'Who would you like to grant admin access?',
             text: '',
@@ -261,7 +230,6 @@ angular.module('personal').controller('mainController', ($rootScope, $scope, $st
             console.log(input);
             $scope.getUser(input);
         });
-        // });
     };
 
     $scope.getBrackets = (status) => {
@@ -273,4 +241,40 @@ angular.module('personal').controller('mainController', ($rootScope, $scope, $st
             $state.go('bracket-edit');
         });
     };
+
+    $scope.showSuccess = () => {
+        swal({
+            title: "Success",
+            text: "Bracket Successfully Updated",
+            allowOutsideClick: true
+        });
+    };
+
+
+    (() => {
+        if ($state.current.name === 'business-income') {
+            $scope.loc = '../assets/revenue.jpg';
+        }
+        else if ($state.current.name === 'deductions') {
+            $scope.loc = '../assets/deduction.jpg';
+        }
+        else if ($state.current.name === 'exemptions') {
+            $scope.loc = '../assets/exemptions.jpg';
+        }
+        else if ($state.current.name === 'personal-expense') {
+            $scope.loc = '../assets/personal.jpg';
+        }
+        else if ($state.current.name === 'business-expense') {
+            $scope.loc = '../assets/business.png';
+        }
+    })();
+
+    $scope.background = {
+        "background": `url(${$scope.loc})`,
+        "background-size": "cover"
+    };
+
+
+
+
 }); //End mainController

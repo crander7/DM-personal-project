@@ -18,13 +18,13 @@
             </tr>
             <tbody ng-repeat="b in brackets">
                 <tr>
-                    <td><input type="text" value="{{b.rate}}"></td>
-                    <td><input type="text" value="{{b.from}}"></td>
-                    <td><input type="text" value="{{b.to}}"></td>
-                    <td><input type="text" value="{{b.plus}}"></td>
+                    <td><input type="text" ng-value="b.rate"></td>
+                    <td><input type="text" ng-value="b.from"></td>
+                    <td><input type="text" ng-value="b.to"></td>
+                    <td><input type="text" ng-value="b.plus"></td>
                 </tr>
             </tbody>
         </table>
-        <a><button type="button" name="button">Update Bracket</button></a>
+        <a ng-click="showSuccess()"><button type="button" name="button">Update Bracket</button></a>
     </div>
 </div>

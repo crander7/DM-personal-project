@@ -23,6 +23,16 @@ angular.module('personal').service('mainService', function($http, $location) {
     };
 
     this.addToClient = (val, loc, val2) => {
+        if (val2) {
+            if (val2.indexOf(',') > -1) {
+                let i = val2.indexOf(',');
+                val2.splice(i, 1);
+            }
+        }
+        if (val.indexOf(',') > -1) {
+            let i = val.indexOf(',');
+            val.splice(i, 1);
+        }
         switch (loc) {
             case 'filing-status':
                 client.filingStatus = val;
@@ -157,6 +167,17 @@ angular.module('personal').service('mainService', function($http, $location) {
                     val: report.totalNet.soleProp
                 }
             ];
+            obj.w2Wages = formater(obj.w2Wages);
+            obj.businessNet = formater(obj.businessNet);
+            obj.totalTax.w2 = formater(obj.totalTax.w2);
+            obj.totalTax.sCorp = formater(obj.totalTax.sCorp);
+            obj.totalTax.soleProp = formater(obj.totalTax.soleProp);
+            obj.businessExpense = formater(obj.businessExpense);
+            obj.totalExpense.sCorp = formater(obj.totalExpense.sCorp);
+            obj.totalExpense.soleProp = formater(obj.totalExpense.soleProp);
+            obj.totalNet.w2 = formater(obj.totalNet.w2);
+            obj.totalNet.sCorp = formater(obj.totalNet.sCorp);
+            obj.totalNet.soleProp = formater(obj.totalNet.soleProp);
             return report;
         });
     };
@@ -175,7 +196,7 @@ angular.module('personal').service('mainService', function($http, $location) {
             stageTwo.federalIncomeTax.w2 = Math.round((brackets.fedTaxRate.w2.plus + ((stageTwo.taxableIncome.w2 - brackets.fedTaxRate.w2.bottom) * brackets.fedTaxRate.w2.rate)));
         }
         stageTwo.totalTax.w2 = (stageTwo.federalIncomeTax.w2 + stageTwo.fica.w2);
-        stageTwo.totalNet.w2 = stageTwo.w2Wages - stageTwo.totalTax.w2;
+        stageTwo.totalNet.w2 = Math.round(stageTwo.w2Wages - stageTwo.totalTax.w2);
         stageTwo.effectiveTaxRate.w2 = Math.round((stageTwo.totalTax.w2 / stageTwo.w2Wages) * 100);
         let completedObj = stageTwo;
         return completedObj;
@@ -188,7 +209,7 @@ angular.module('personal').service('mainService', function($http, $location) {
         }
         obj.totalTax.sCorp = (obj.federalIncomeTax.sCorp + obj.fica.sCorp);
         obj.totalExpense.sCorp = (obj.businessExpense + obj.totalTax.sCorp);
-        obj.totalNet.sCorp = obj.businessNet - obj.totalExpense.sCorp;
+        obj.totalNet.sCorp = Math.round(obj.businessNet - obj.totalExpense.sCorp);
         obj.effectiveTaxRate.sCorp = Math.round((obj.totalTax.sCorp / obj.businessNet) * 100);
         return obj;
     };
@@ -200,10 +221,17 @@ angular.module('personal').service('mainService', function($http, $location) {
         }
         obj.totalTax.soleProp = (obj.federalIncomeTax.soleProp + obj.fica.soleProp);
         obj.totalExpense.soleProp = obj.totalTax.soleProp;
-        obj.totalNet.soleProp = obj.businessNet - obj.totalExpense.soleProp;
+        obj.totalNet.soleProp = Math.round(obj.businessNet - obj.totalExpense.soleProp);
         obj.effectiveTaxRate.soleProp = Math.round((obj.totalTax.soleProp / obj.businessNet) * 100);
         return obj;
     };
 
+    let formater = val => {
+        let splitStr = val.toString().split('');
+        splitStr.splice(-3, 0, ",");
+        // splitStr.push(".00");
+        let result = splitStr.join('');
+        return result;
+    };
 
 }); //End mainService
