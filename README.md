@@ -1,0 +1,1 @@
+This project was my personal project at DevMountain. I worked on a tool for Independent Contractor Tax Advisors to help their clients determine which business structure would benefit them most for tax purposes.
