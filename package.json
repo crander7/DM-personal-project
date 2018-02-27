@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "pm2 start index.js --name taxtools",
+    "start": "pm2 start server.js --name taxtools",
     "logs": "pm2 logs taxtools --lines 100",
     "stop": "pm2 stop taxtools",
     "restart": "pm2 restart taxtools",
