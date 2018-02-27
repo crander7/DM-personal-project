@@ -4,8 +4,11 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "pm2 start index.js --name taxtools",
+    "logs": "pm2 logs taxtools --lines 100",
+    "stop": "pm2 stop taxtools",
+    "restart": "pm2 restart taxtools",
+    "delete": "pm2 delete taxtools"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +16,7 @@
     "babel-preset-es2015": "^6.13.2",
     "body-parser": "^1.15.2",
     "cors": "^2.7.1",
+    "deasync": "^0.1.10",
     "express": "^4.14.0",
     "express-session": "^1.14.0",
     "gulp": "^3.9.1",
